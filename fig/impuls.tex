@@ -1,0 +1,20 @@
+\documentclass{standalone}
+\input{preamble}
+\begin{document}
+	\begin{tikzpicture}
+    \pgfplotstableread{./imp_5.dat}\mydata;
+		\begin{axis}[
+                        %axis lines = middle,
+                        ylabel = {$P(t)$, a.e.}, 
+                        xlabel = {$t,$ нс},
+                    ]
+
+            \addplot[color=red, line width = 1pt] 
+            table[ 
+                    x expr=\thisrowno{0},
+                    y expr=\thisrowno{1}
+                 ]{\mydata};
+
+		\end{axis}
+	\end{tikzpicture}
+\end{document}
