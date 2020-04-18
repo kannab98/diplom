@@ -1,0 +1,51 @@
+This is BibTeX, Version 0.99d (TeX Live 2019/Arch Linux)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: diplom.aux
+The style file: gost2008.bst
+Reallocated wiz_functions (elt_size=8) to 6000 items from 3000.
+Reallocated singl_function (elt_size=8) to 100 items from 50.
+Database file #1: sections/retracking.bib
+Warning--I didn't find a database entry for "cite:PTR"
+Reallocated singl_function (elt_size=8) to 100 items from 50.
+You've used 4 entries,
+            4660 wiz_defined-function locations,
+            1373 strings with 12729 characters,
+and the built_in function-call counts, 1724 in all, are:
+= -- 205
+> -- 32
+< -- 10
++ -- 11
+- -- 7
+* -- 109
+:= -- 169
+add.period$ -- 18
+call.type$ -- 4
+change.case$ -- 3
+chr.to.int$ -- 0
+cite$ -- 4
+duplicate$ -- 95
+empty$ -- 191
+format.name$ -- 7
+if$ -- 461
+int.to.chr$ -- 0
+int.to.str$ -- 4
+missing$ -- 0
+newline$ -- 41
+num.names$ -- 12
+pop$ -- 21
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 71
+stack$ -- 0
+substring$ -- 76
+swap$ -- 75
+text.length$ -- 6
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 0
+while$ -- 10
+width$ -- 5
+write$ -- 76
+(There was 1 warning)

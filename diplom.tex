@@ -3,6 +3,7 @@
 
 % Шрифты, кодировки, символьные таблицы, переносы
 \usepackage[utf8]{inputenc}
+%\usepackage[T2A]{fontenc}
 \usepackage[russian]{babel}
 
 % Это пакет -- хитрый пакет, он нужен но не нужен
@@ -52,7 +53,8 @@
 \definecolor{linkcolor}{HTML}{000000} % цвет ссылок
 \definecolor{urlcolor}{HTML}{799B03} % цвет гиперссылок
  
-\hypersetup{linkcolor=linkcolor,urlcolor=urlcolor, colorlinks=true}
+\hypersetup{linkcolor=linkcolor,urlcolor=urlcolor, colorlinks=true,
+citecolor=linkcolor}
 \hypersetup{pageanchor=false}
 % Увеличенный межстрочный интервал, французские пробелы
 \linespread{1.3} 
@@ -61,6 +63,9 @@
 \newcommand{\mean}[1]{\langle#1\rangle}
 \newcommand\ct[1]{\text{\rmfamily\upshape #1}}
 \newcommand*{\const}{\ct{const}}
+\renewcommand{\phi}{\varphi}
+\renewcommand{\epsilon}{\varepsilon}
+%\renewcommand{\sigma}{\varsigma}
 
 \usepackage{array}
 \usepackage{pstool}
@@ -74,22 +79,18 @@
         bindingoffset   =   0cm
     }
 
-\usepackage{import}
-\usepackage{xifthen}
-\usepackage{pdfpages}
-\usepackage{transparent}
 %----------------------------------
-\usepackage{import}
-\usepackage{pdfpages}
-\usepackage{transparent}
-\usepackage{xcolor}
+%\usepackage{import}
+%\usepackage{pdfpages}
+%\usepackage{transparent}
+%\usepackage{xcolor}
 
-\newcommand{\incfig}[2][1]{%
-    \def\svgwidth{#1\columnwidth}
-    \import{./fig/}{#2.pdf_tex}
-}
+%\newcommand{\incfig}[2][1]{%
+    %\def\svgwidth{#1\columnwidth}
 
-\pdfsuppresswarningpagegroup=1
+%}
+
+%\pdfsuppresswarningpagegroup=1
 %-------------------------------
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %применим колонтитул к стилю страницы
@@ -106,7 +107,7 @@
     %% номер страницы в нижнем колинтуле в центре
 %\fancyfoot[C]{} 
 
-\bibliographystyle{abbrv}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \renewcommand{\contentsname}{Оглавление}
@@ -115,12 +116,21 @@
 \sectiondot{subsection}
 
 \begin{document}
+\tableofcontents
 
-\incfig{imp}
+\input{sections/introduction}
+
+%\input{sections/water}
+
 \input{sections/retracking}
 
+\cite{bass-and-fuks}
+\bibliographystyle{gost2008}
+\bibliography{
+               sections/retracking.bib
+             }
 
-
-
+\appendix
+%\input{sections/appendix}
 
 \end{document}
