@@ -1,4 +1,0 @@
-\babel@toc {russian}{}
-\contentsline {subsection}{\numberline {0.1}Восстановление параметров морской поверхности.}{5}{subsection.0.1}% 
-\contentsline {paragraph}{Поиск наклона заднего фронта}{6}{section*.4}% 
-\contentsline {paragraph}{Поиск ширины переднего фронта}{7}{section*.5}% 
