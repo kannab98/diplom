@@ -3,11 +3,16 @@
 
 % Шрифты, кодировки, символьные таблицы, переносы
 \usepackage[utf8]{inputenc}
-%\usepackage[T2A]{fontenc}
+\usepackage[T1]{fontenc}
 \usepackage[russian]{babel}
 
 % Это пакет -- хитрый пакет, он нужен но не нужен
 \usepackage[mode=buildnew]{standalone}
+
+%\usepackage[subfigure]{tocloft}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,positioning,fit,backgrounds,calc}
+
 
 \usepackage
     {
@@ -21,11 +26,13 @@
         % misccorr,
         % 
         % Графики и рисунки
-        wrapfig,
+        %wrapfig,
         graphicx,
         subcaption,
         float,
-        caption,
+        pgfplots,
+        pgfplotstable,
+        %caption,
         color,
         booktabs,
         geometry,
@@ -57,7 +64,7 @@
 citecolor=linkcolor}
 \hypersetup{pageanchor=false}
 % Увеличенный межстрочный интервал, французские пробелы
-\linespread{1.3} 
+\linespread{1.2} 
 \frenchspacing 
 
 \newcommand{\mean}[1]{\langle#1\rangle}

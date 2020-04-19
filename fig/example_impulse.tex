@@ -1,11 +1,11 @@
-\documentclass{standalone}
+\documentclass[tikz]{standalone}
 \input{preamble}
 \begin{document}
-	\begin{tikzpicture}
-    \pgfplotstableread{./imp_5.dat}\mydata;
-		\begin{axis}[
-                        %axis lines = middle,
-                        ylabel = {$P(t)$, a.e.}, 
+\pgfplotsset{compat=1.9,width=\linewidth,height=7cm}
+\begin{tikzpicture}
+    \pgfplotstableread{../data/example_impulse.tsv}\mydata;
+        \begin{axis}[
+                        ylabel = {$P(t)$, отн.ед.}, 
                         xlabel = {$t,$ нс},
                     ]
 
@@ -14,7 +14,6 @@
                     x expr=\thisrowno{0},
                     y expr=\thisrowno{1}
                  ]{\mydata};
-
-		\end{axis}
-	\end{tikzpicture}
+         \end{axis}
+\end{tikzpicture}
 \end{document}

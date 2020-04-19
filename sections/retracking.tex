@@ -1,15 +1,13 @@
 %!TEX root = ../diplom.tex
+\section{Алгоритм ретрекинга}
 \begin{figure}[h]
     \centering
     %\includegraphics[width=0.6\linewidth]{fig/geometry}
     \caption{Геометрия отклика от плоской поверхности.}
     \label{fig:geometry}
 \end{figure}
-В работе \cite{brown} отмечалось, что ...
 Посчитаем теоретически отклик плоской морской поверхности $P_{FS}$ на сигнал с
 радиолокатора с известной диаграммой направленности $G(\theta,hueta)$.
-Принятный радиолокатором импульс можно вычислить как свертку излученного
-сигнала с импульсной характеристикой плоской морской поверхности.
 
 
 Форма функции $P_{FS}$ ... 
@@ -277,12 +275,6 @@ $A = A_0 \exp{\frac{- 4}{\gamma} \sin^2 \xi}$ и т.д (формула Брау�
 хочется расписывать все обозначения целиком).
 
 График функции \eqref{eq:brown} изображен на рис. \ref{fig:brown}.
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.6\linewidth]{example-image-a}
-    \caption{Качественный вид импульса}
-    \label{fig:brown}
-\end{figure}
 
 \subsection{Восстановление параметров морской поверхности.}%
 \label{sub:vosstanovlenie_parametrov_morskoi_poverkhnosti_}
@@ -305,7 +297,7 @@ $A = A_0 \exp{\frac{- 4}{\gamma} \sin^2 \xi}$ и т.д (формула Брау�
 
 \begin{figure}[h]
     \centering
-    \includegraphics{example-image-a}
+    \includegraphics{fig/example_impulse.pdf}
     \caption{Качественная форма импульса с обозначением основных параметров.}
     \label{fig:impuls}
 \end{figure}
@@ -386,28 +378,37 @@ $\erf\qty(\frac{t - \tau}{\sigma_L})$ ведет себя
 На рисунках ниже продемострированы результаты работы этого алгоритма на
 различных формах импульса (меняются углы отклонения антенны).
 
-%\begin{figure}[H]
-    %\centering
-    %\includegraphics[width=\linewidth]{fig/retracking/imp08_7_3}
-    %\caption{Обработка файла imp08\_7.dat}
-    %\label{fig:ex}
-%\end{figure}
+
+\begin{figure}[ht]
+    \begin{subfigure}{0.5\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{fig/retracking/imp08_7_3}
+        \caption{Обработка файла imp08\_7.dat}
+        \label{fig:}
+    \end{subfigure}
+    \begin{subfigure}{0.5\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{fig/retracking/imp_5_3}
+        \caption{Обработка файла imp\_5.dat}
+        \label{fig:}
+    \end{subfigure}
+    \begin{subfigure}{0.5\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{fig/retracking/imp04_10_3}
+        \caption{Обработка файла imp04\_10.dat}
+        \label{fig:}
+    \end{subfigure}
+    \begin{subfigure}{0.5\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{fig/retracking/imp_15a_3}
+        \caption{Обработка файла imp15a.dat}
+        \label{fig:}
+    \end{subfigure}
+\end{figure}
 
 
-%\begin{figure}[H]
-    %\centering
-    %\includegraphics[width=\linewidth]{fig/retracking/imp_5_3}
-    %\caption{Обработка файла imp\_5.dat}
-    %\label{fig:ex}
-%\end{figure}
 
 
-%\begin{figure}[H]
-    %\centering
-    %\includegraphics[width=\linewidth]{fig/retracking/imp04_10_3}
-    %\caption{Обработка файла imp04\_10.dat}
-    %\label{fig:ex}
-%\end{figure}
 
 
 %\begin{figure}[H]
