@@ -1,4 +1,4 @@
-\documentclass[tikz]{standalone}
+\documentclass{standalone}
 \input{preamble}
 \begin{document}
 \pgfplotsset{compat=1.9,width=\linewidth,height=7cm}
@@ -6,7 +6,13 @@
     \pgfplotstableread{../data/example_impulse.tsv}\mydata;
         \begin{axis}[
                         ylabel = {$P(t)$, отн.ед.}, 
-                        xlabel = {$t,$ нс},
+                        xlabel = {$t,$ с},
+                        %axis lines = middle,
+                        %xtick = \empty,
+                        axis x line = bottom,
+                        axis y line = left,
+                        ymax = 2.2,
+                        ymin = -0.2,
                     ]
 
             \addplot[color=red, line width = 1pt] 
