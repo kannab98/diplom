@@ -3,14 +3,15 @@
 \begin{figure}[h]
     \centering
     \def\svgwidth{0.8\linewidth}
-    \import{./fig/}{geometry.pdf_tex}
+    %\import{./fig/}{geometry.pdf_tex}
+    \includesvg{geometry}
     \caption{Геометрия задачи вычисления отклика радиолокатора на плоскую
     поверхность с учетом отклонения антенны от надира.}
     \label{fig:geometry}
 \end{figure}
 Посчитаем теоретически отклик плоской морской поверхности $P_{FS}$ на сигнал с
 радиолокатора.
-Предпологаем известными диаграмму направленности $G(\theta)$, мощность
+Предполагаем известными диаграмму направленности $G(\theta)$, мощность
 излученной энергии как функцию времени $P(t)$ и длину волны излучения
 $\lambda$.
 
@@ -377,13 +378,13 @@ $\xi \ll 1$ -- малое отклонение антенны от надира,
 \begin{figure}[h]
     \centering
     \def\svgwidth{0.8\linewidth}
-    %\import{./fig/}{example_impulse1.pdf_tex}
+    \includesvg{impulse}
     \caption{Качественная форма импульса с обозначением основных параметров.}
     \label{fig:impuls}
 \end{figure}
 
 Поэтому для решения задачи ретрекинга предлагается, использовать менее физичную, но более наглядную запись формулы
-\eqref{eq:brown}:
+\eqref{eq:brown}
 \begin{equation}
     \label{eq:ice}
     P(t) = A \exp{ S_T (t - \frac{\tau}{2})} \qty(1 + \erf{\frac{t-

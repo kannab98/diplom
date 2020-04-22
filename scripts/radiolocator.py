@@ -8,18 +8,6 @@ from scipy.special import erf
 
 xrad = yrad = 0
 
-def U10(sigma0):
-    if sigma0 < 10.12:
-        A =  0.080074
-        B = -0.12465
-    elif sigma0 < 19.9:
-        A = 0.03989
-        B = -0.03199
-    else:
-        A = 0.01595
-        B = 0.017215
-    return (np.exp(10**-(0.21 + 0.1*sigma0)) - B)/A
-
 class Radiolocator():
     def __init__(self, h=1e6, xi=0.0, theta=1.5, c=299792458, sigma=1, 
                     angles_in='degrees', pulse = np.array([None]), t = None):

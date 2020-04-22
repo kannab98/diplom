@@ -1,6 +1,6 @@
 %% Creator: Inkscape inkscape 0.92.5, www.inkscape.org
 %% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
-%% Accompanies image file 'geometry.pdf' (pdf, eps, ps)
+%% Accompanies image file 'impulse.pdf' (pdf, eps, ps)
 %%
 %% To include the image in your LaTeX document, write
 %%   \input{<filename>.pdf_tex}
@@ -38,7 +38,7 @@
   \newcommand*\fsize{\dimexpr\f@size pt\relax}%
   \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{599.25000288bp}%
+    \setlength{\unitlength}{335.4469986bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -50,17 +50,10 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.90488108)%
+  \begin{picture}(1,0.55574204)%
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
-    \put(0,0){\includegraphics[width=\unitlength,page=1]{geometry.pdf}}%
-    \put(0.58900106,0.21396783){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\dd A$\end{tabular}}}}%
-    \put(0.58421242,0.43313071){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$r+\dd r$\end{tabular}}}}%
-    \put(0.52431606,0.43089573){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$r$\end{tabular}}}}%
-    \put(0.47961737,0.51537633){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$h$\end{tabular}}}}%
-    \put(0.3839621,0.48766317){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$r_1$\end{tabular}}}}%
-    \put(0.17030216,0.39200785){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$r_2$\end{tabular}}}}%
-    \put(0.58456729,0.31590972){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\dd \theta$\end{tabular}}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=2]{geometry.pdf}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{impulse.pdf}}%
+    \put(0.04685697,0.07148364){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.49164469\unitlength}\raggedright \end{minipage}}}%
   \end{picture}%
 \endgroup%
