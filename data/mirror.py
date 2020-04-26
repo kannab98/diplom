@@ -5,6 +5,7 @@ import numpy as np
 from numpy import pi
 sys.path.insert(0, '../scripts')
 from surface import Surface
+import pandas as pd
 from matplotlib.cm import winter,summer,Greys
 
 surface = Surface(N=2048,M=128,U10=5)
@@ -14,9 +15,20 @@ t=0
 x, y = np.meshgrid(x0, y0)
 
 
-z1 = surface.slopesxx([x,y],t)
-z2 = surface.slopesyy([x,y],t)
-z3 = surface.heights([x,y],t)
+df = pd.read_csv('heights.tsv', sep ='\t', header = None)
+heights = df.values
+
+df = pd.read_csv('slopesxx.tsv', sep ='\t', header = None)
+slopesxx = df.values
+
+df = pd.read_csv('slopesyy.tsv', sep ='\t', header = None)
+slopesyy = df.values
+
+df = pd.read_csv('x.tsv', sep ='\t', header = None)
+x  = df.values
+
+df = pd.read_csv('y.tsv', sep ='\t', header = None)
+y  = df.values
 
 h = 1e6
 offset = 100

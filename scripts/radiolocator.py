@@ -105,35 +105,83 @@ class Radiolocator():
         pulse = A*np.exp(-v)*( 1 + erf(u) )
 
         return pulse
+    
+class Pulse:
+    def __init__(self, r0 = [0,0,3e6],
+                       gane_width=np.deg2rad(1.5),
+                       c = 3e8):
+        self.c =  c
+        self.r0 = r0
+        gane_width = np.deg2rad(1.5) # Ширина диаграммы направленности в радианах
+        self.gamma = 2*np.sin(gane_width/2)**2/np.log(2)
 
-    def calc(self,t,pulse):
-        self.brown = lambda t,A,alpha,sigma:  A*np.exp(-alpha*(t - alpha/2 * sigma**2))*(1 + erf( (t - alpha*sigma**2)/(2**0.5*sigma))) 
+    def G(self,theta,G0=1):
+            # G -- диаграмма направленности
+            # theta -- угол падения
+            return G0*np.exp(-2/self.gamma * np.sin(theta)**2)
+    
+    def R(self,x,y,z,x0=0,y0=0,z0=1e6):
+        r = np.sqrt( (x-x0)**2 + (y-y0)**2 + (z-z0)**2)
+        return r
+
+    def theta_calc(self,x,y,z,x0=0,y0=0,z0=1e6):
+        cos_theta = (z0-z)/np.sqrt(
+            ( (x-x0)**2 + (y-y0)**2 + (z-z0)**2 )
+            )
+        return np.arccos(cos_theta)
+
+    def local_theta_calc(self,x,y,z,sxx,syy,x0=0,y0=0,z0=1e6):
+        nmod = np.sqrt(sxx**2+syy**2+1)
+        r    = self.R(x,y,z,x0,y0,z0)
+        cos_theta = (sxx*(x-x0) + syy*(y-y0) + (z0 - z))/nmod/r
+        return np.arccos(cos_theta)
+
+    def mirror_sort(self,x,y,z,sxx,syy,theta, err = 1):
+
+        for i in range(theta.shape[0]):
+            for j in range(theta.shape[1]):
+                if  theta[i,j] > np.deg2rad(err):
+                    x[i,j]  =None
+                    y[i,j]  =None
+                    z[i,j]  =None
+                    sxx[i,j]=None
+                    syy[i,j]=None
+
+                    
+        x   = x[~np.isnan(x)]
+        y   = y[~np.isnan(y)]
+        z   = z[~np.isnan(z)]
+        sxx   = sxx[~np.isnan(sxx)]
+        syy   = syy[~np.isnan(syy)]
+        return x,y,z,sxx,syy
+
+    def E_calc(self,t,omega,timp,R, theta,):
+
+        def A(t,tau,timp):
+            if 0 <= t-tau <= timp:
+                A = 1
+            else:
+                A = 0
+            return A
+
+        E = np.zeros(R.size)
+        c = self.c 
+        G = self.G
+        tau = R/c
+        for i in range(R.size):
+            if t - tau[i] < 0:
+                E[i] = 0
+            else:
+                A0 = A(t,tau[i],timp)
+                G0 = G(theta[i])
+                R0 = R[i]
+                E[i] =  A0 * G0 / R0 *\
+                    np.exp(
+                        1j*omega*(t - tau[i]*np.cos(theta[i]))
+                    )
         
-        theta = np.deg2rad(1.5)
-        gamma = 2*np.sin(theta/2)**2/np.log(2)
-
-        popt = curve_fit(self.brown, 
-                            xdata=t,
-                            ydata=pulse,
-                            p0=[1,2e6,0],
-                            bounds=( (0,1e5,0), (2,4e6,np.inf) )
-                        ) [0]
-        c = self.c
-        R = self.R
-
-        tmp = np.log(popt[0])
-        if tmp > 0 :
-            xi = 0
-        else:
-            xi = np.arcsin( np.sqrt( -gamma/4 * tmp ))
-
-
-        h0 = 4*c/gamma/popt[1]  * (np.cos(2*xi) - np.sin(2*xi)**2/gamma)
-        h  = -R/2 + np.sqrt(R**2 +4*h0*R)/2
-
-        sigma_s = (popt[2]**2 - (self.T*0.425) **2)*c**2/4
-        P = max(pulse) - min(pulse)
-        return np.rad2deg(xi), h, sigma_s, 10*np.log10(P)
+        return np.sum(E)**2/2
+    
 
 
 

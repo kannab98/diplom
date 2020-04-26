@@ -3,33 +3,50 @@ import os
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
-from surface import Surface
 sys.path.insert(0, '../scripts')
+from surface import Surface
 
 
 file_name =  os.path.basename(sys.argv[0])
 (file, ext) = os.path.splitext(file_name)
 
 
-N = 256
-M = 1
+N = 1024
+M = 128
 t = 0
 
+x = np.linspace(-5000,5000, 100)
+y = np.linspace(-5000,5000, 100)
+x,y  = np.meshgrid(x,y)
+surface = Surface(N=N,M=M,U10=5,wind= 0)
 
-def plot_surface(x , y, t):
-    fig,ax = plt.subplots(nrows = 1, ncols = 1)
-    surface = water.Surface(N=N,M=M,U10=5,wind= np.pi/6)
-    x, y = np.meshgrid(x, y)
-    z = surface.model([x,y],t)
-    print(z.shape)
-    from matplotlib.cm import winter
-    plt.contourf(x,y,z,levels=100,cmap=winter)
-    plt.colorbar()
-    plt.ylabel('Y, м',fontsize=16)
-    plt.xlabel('X, м',fontsize=16)
-    plt.savefig('/home/kannab/documents/water/poster/fig/water5.png',  pdi=10**6,transparent=True)
+heights = surface.heights([x,y],t)
+slopesxx = surface.slopesxx([x,y],t)
+slopesyy = surface.slopesyy([x,y],t)
 
-x0 = np.linspace(0,200,200)
-y0 = x0
-plot_surface(x0,y0,t)
+
+# folder = 'model_data/'
+data = pd.DataFrame(heights)
+data.to_csv(r'heights_big.tsv',index=False,header=None,sep="\t") 
+
+data = pd.DataFrame(slopesxx)
+data.to_csv(r'slopesxx_big.tsv',index=False,header=None,sep="\t") 
+
+data = pd.DataFrame(slopesyy)
+data.to_csv(r'slopesyy_big.tsv',index=False,header=None,sep="\t") 
+
+data = pd.DataFrame(x)
+data.to_csv(r'x_big.tsv',index=False,header=None,sep="\t") 
+
+data = pd.DataFrame(y)
+data.to_csv(r'y_big.tsv',index=False,header=None,sep="\t") 
+
+
+
+plt.figure()
+plt.contourf(x,y,heights,levels=100,)
+plt.figure()
+plt.contourf(x,y,slopesxx,levels=100,)
+plt.figure()
+plt.contourf(x,y,slopesyy,levels=100,)
 plt.show()

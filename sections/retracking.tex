@@ -377,9 +377,9 @@ $\xi \ll 1$ -- малое отклонение антенны от надира,
 
 \begin{figure}[h]
     \centering
-    \def\svgwidth{0.8\linewidth}
-    \includesvg{impulse}
-    \caption{Качественная форма импульса с обозначением основных параметров.}
+    %\def\svgwidth{0.8\linewidth}
+    %\includesvg{impulse}
+    %\caption{Качественная форма импульса с обозначением основных параметров.}
     \label{fig:impuls}
 \end{figure}
 
@@ -414,12 +414,12 @@ $S_T$ -- коэффициент наклона заднего фронта им�
 мы получаем линейную функцию времени. Значит, построив логарифм формы импульса при
 $t>t_{max}$ и найдя коэффициент наклона получившейся прямой мы можем найти
 наклон заднего фронта $S_T$. Подобная процедура проведена на рис.\ref{fig:S_T}
- %\begin{figure}[h]
-    %\centering
-    %\includegraphics[width=\linewidth]{../project/radiolocator/imp08_7_1.pdf}
-    %\caption{Нахождение наклона заднего фронта}
-    %\label{fig:S_T}
-%\end{figure}
+ \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\linewidth]{fig/imp08_7_1.pdf}
+    \caption{Поиск наклона заднего фронта}
+    \label{fig:S_T}
+\end{figure}
 
 \paragraph{Поиск ширины переднего фронта.}%
 Как видно из рис.\ref{fig:erf}, при $t<t_{max}$ функция ошибок
@@ -427,14 +427,16 @@ $\erf\qty(\frac{t - \tau}{\sigma_L})$ ведет себя
 быстрее экспоненты, а значит можно написать приближенное равенство
 \begin{equation}
     \label{eq:erf}
-    P(t) \approx A \qty(1 + \erf{\frac{t - \tau}{\sigma_L}})
+    P(t) \approx A \qty(1 + \erf\frac{t - \tau}{\sigma_L})
 \end{equation}
 
-%\begin{figure}[h]
-    %\centering
-    %\includegraphics[width=\linewidth]{../project/radiolocator/imp08_7_2.pdf}
-    %\label{fig:erf}
-%\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\linewidth]{fig/imp08_7_2.pdf}
+    \caption{Поиск ширины переднего фронта исходя из формы функции
+    $\erf\qty(\frac{t-\tau}{\sigma_L})$}
+    \label{fig:erf}
+\end{figure}
 
 Аппроксимируя импульс при $t<t_{max}$ формулой \eqref{eq:erf} мы получим оценку
 коэффициентов $A,~\tau,~\sigma_L$. 
@@ -462,27 +464,25 @@ $\erf\qty(\frac{t - \tau}{\sigma_L})$ ведет себя
     \begin{subfigure}{0.5\linewidth}
         \centering
         \includegraphics[width=\linewidth]{fig/retracking/imp08_7_3}
-        \caption{Обработка файла imp08\_7.dat}
-        \label{fig:}
+        %\caption{Обработка файла imp08\_7.dat}
     \end{subfigure}
     \begin{subfigure}{0.5\linewidth}
         \centering
         \includegraphics[width=\linewidth]{fig/retracking/imp_5_3}
-        \caption{Обработка файла imp\_5.dat}
-        \label{fig:}
+        %\caption{Обработка файла imp\_5.dat}
     \end{subfigure}
     \begin{subfigure}{0.5\linewidth}
         \centering
         \includegraphics[width=\linewidth]{fig/retracking/imp04_10_3}
-        \caption{Обработка файла imp04\_10.dat}
-        \label{fig:}
+        %\caption{Обработка файла imp04\_10.dat}
     \end{subfigure}
     \begin{subfigure}{0.5\linewidth}
         \centering
         \includegraphics[width=\linewidth]{fig/retracking/imp_15a_3}
-        \caption{Обработка файла imp15a.dat}
-        \label{fig:}
+        %\caption{Обработка файла imp15a.dat}
     \end{subfigure}
+    \label{fig:example-impulses}
+    \caption{Примеры обработки некоторых модельных импульсов}
 \end{figure}
 
 
@@ -498,7 +498,7 @@ $\erf\qty(\frac{t - \tau}{\sigma_L})$ ведет себя
     \begin{gathered}
         S_T = - \alpha,\\
         \sigma_L = \sqrt 2 \sigma_c,\\
-        \sigma_c^2 = \sigma_p^2 + \frac{\sigma_s^2}{c^2}.
+        \sigma_c^2 = \sigma_p^2 + \qty(\frac{2\sigma_s}{c})^2.
     \end{gathered}
 \end{equation}
 
