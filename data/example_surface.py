@@ -15,8 +15,8 @@ N = 1024
 M = 128
 t = 0
 
-x = np.linspace(-5000,5000, 100)
-y = np.linspace(-5000,5000, 100)
+x = np.linspace(-5500,5500, 100)
+y = np.linspace(-5500,5500, 100)
 x,y  = np.meshgrid(x,y)
 surface = Surface(N=N,M=M,U10=5,wind= 0)
 
