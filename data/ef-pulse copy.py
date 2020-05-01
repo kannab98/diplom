@@ -33,7 +33,7 @@ k = omega/c
 
 # sxx = sxx * 0
 # syy = syy * 0
-# z = z * 0
+z = z * 0
 
 r = np.array([x.flatten(),y.flatten(),z.flatten()])
 r0 = np.array([np.zeros(x.size),np.zeros(x.size),-z0*np.ones(x.size)])

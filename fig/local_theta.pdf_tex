@@ -38,7 +38,7 @@
   \newcommand*\fsize{\dimexpr\f@size pt\relax}%
   \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{369.06008148bp}%
+    \setlength{\unitlength}{414.04019165bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -50,25 +50,25 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.81809194)%
+  \begin{picture}(1,0.82734532)%
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{local_theta.pdf}}%
-    \put(0.15346709,0.40411659){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$H_0$\end{tabular}}}}%
+    \put(0.20845887,0.55852601){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\theta$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{local_theta.pdf}}%
-    \put(0.21491655,0.57859426){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\theta_0$\end{tabular}}}}%
+    \put(0.55630009,0.33339224){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\theta_0$\end{tabular}}}}%
+    \put(0.55006243,0.41859752){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\vec n(\zeta_x,\zeta_y, 1)$\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{local_theta.pdf}}%
-    \put(0.61328053,0.32195738){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\theta$\end{tabular}}}}%
-    \put(0.59815388,0.42161164){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\vec n(\zeta_x,\zeta_y,-1)$\end{tabular}}}}%
+    \put(0.80115503,0.25122361){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$x$\end{tabular}}}}%
+    \put(0.22125739,0.76074526){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z$\end{tabular}}}}%
+    \put(1.01509767,0.57607883){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.00675611\unitlength}\raggedright \end{minipage}}}%
+    \put(0.20718219,0.28556707){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z$\end{tabular}}}}%
+    \put(0.32868383,0.53436089){\color[rgb]{0,0,0}\rotatebox{-38.8222074}{\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\vec R=\vec R_0 + \zeta \vec n_z$\end{tabular}}}}}%
+    \put(0.38164117,0.40505114){\color[rgb]{0,0,0}\rotatebox{-36.26161531}{\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\vec R_0$\end{tabular}}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=4]{local_theta.pdf}}%
-    \put(0.91648325,0.66018564){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$x$\end{tabular}}}}%
-    \put(0.1585329,0.06898443){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$z$\end{tabular}}}}%
-    \put(1.11986645,0.59828638){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.00757953\unitlength}\raggedright \end{minipage}}}%
-    \put(0.67962371,0.19594113){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\zeta$\end{tabular}}}}%
-    \put(0.34979422,0.55148396){\color[rgb]{0,0,0}\rotatebox{-38.8222074}{\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$\vec R_1=\vec R_0 + \zeta \vec n_z$\end{tabular}}}}}%
-    \put(0.38481967,0.39422127){\color[rgb]{0,0,0}\rotatebox{-36.26161531}{\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$R_0$\end{tabular}}}}}%
+    \put(0.24939566,0.62611375){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$(x_0,y_0,z_0)$\end{tabular}}}}%
+    \put(0.61554276,0.2971401){\color[rgb]{0,0,0}\rotatebox{31.48396157}{\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$(x,y,z)$\end{tabular}}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=5]{local_theta.pdf}}%
-    \put(0.23493827,0.66603174){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$(x_{rad},y_{rad},H_0)$\end{tabular}}}}%
-    \put(0.67567917,0.28128692){\color[rgb]{0,0,0}\rotatebox{31.48396157}{\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$(x,y,\zeta)$\end{tabular}}}}}%
+    \put(0.61448107,0.21827534){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}$x$\end{tabular}}}}%
   \end{picture}%
 \endgroup%
