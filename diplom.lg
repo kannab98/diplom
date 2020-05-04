@@ -1,0 +1,130 @@
+htfcss: cmmi font-style: italic;
+htfcss: cmmib font-style: italic; font-weight: bold;
+htfcss: labx font-weight: bold;
+htfcss: labx font-weight: bold;
+htfcss: cmbsy font-weight: bold;
+htfcss: cmbsy font-weight: bold;
+htfcss: cmbsy font-weight: bold;
+File: diplom.4oo
+File: diplom.tmp
+File: diplom-settings.4os
+File: diplom-styles.4oy
+File: diplom-manifest.4of
+File: diplom-meta.4ot
+File: diplom-m2.4om
+File: diplom-m3.4om
+File: diplom-m4.4om
+File: diplom-m5.4om
+File: diplom-m6.4om
+File: diplom-m7.4om
+File: diplom-m8.4om
+File: fig/flat_wave1-.png.4og
+File: \Gin@ext .4og
+File: diplom.tmp
+File: diplom.tmp
+File: diplom1.tmp
+File: \Gin@ext .4og
+File: diplom.tmp
+File: diplom.tmp
+File: diplom1.tmp
+File: \Gin@ext .4og
+File: diplom.tmp
+File: diplom.tmp
+File: diplom1.tmp
+File: diplom-m9.4om
+File: diplom-m10.4om
+File: diplom-m11.4om
+File: diplom-m12.4om
+File: diplom-m13.4om
+File: diplom-m14.4om
+File: diplom-m15.4om
+File: diplom-m16.4om
+File: diplom-m17.4om
+File: diplom-m18.4om
+File: diplom-m19.4om
+File: diplom-m20.4om
+File: diplom-m21.4om
+File: \Gin@ext .4og
+File: diplom.tmp
+File: diplom.tmp
+File: diplom1.tmp
+File: diplom-m22.4om
+File: fig/impulse/fig1.png.4og
+File: diplom-m24.4om
+File: fig/impulse/fig2.png.4og
+File: diplom-m26.4om
+File: fig/impulse/fig3.png.4og
+File: diplom-m27.4om
+File: diplom-m28.4om
+File: diplom-m29.4om
+File: diplom-m30.4om
+File: diplom-m31.4om
+File: diplom-m32.4om
+File: diplom-m33.4om
+File: diplom-m34.4om
+File: diplom-m35.4om
+File: diplom-m36.4om
+File: diplom-m37.4om
+File: diplom-m38.4om
+File: diplom-m39.4om
+File: diplom-m40.4om
+File: fig/model_mirrors1.png.4og
+File: fig/model_impuls1-.png.4og
+File: diplom-m41.4om
+File: diplom-m42.4om
+File: fig/model_mirrors2.png.4og
+File: fig/model_impuls2-.png.4og
+File: diplom-m43.4om
+File: fig/model_mirrors4.png.4og
+File: fig/model_impuls4-.png.4og
+File: diplom-m44.4om
+File: fig/model_mirrors3.png.4og
+File: fig/model_impuls3-.png.4og
+File: diplom-m45.4om
+File: diplom-m46.4om
+File: diplom-m47.4om
+File: diplom-m48.4om
+File: diplom-m49.4om
+File: diplom-m50.4om
+File: diplom-m51.4om
+File: diplom.4od
+File: diplom.odt
+l. 61 --- needs --- "rungs -q -dNOPAUSE -dusecropbox -dBATCH -sDEVICE=pngalpha -r300  -sOutputFile="fig/flat_wave1-.png" "fig/flat_wave1.pdf"" ---
+--- needs --- diplom.idv[2] ==> diplom0x.png ---
+--- needs --- diplom.idv[4] ==> diplom1x.png ---
+--- needs --- diplom.idv[6] ==> diplom2x.png ---
+--- needs --- diplom.idv[8] ==> diplom3x.png ---
+l. 261 --- needs --- "rungs -q -dNOPAUSE -dusecropbox -dBATCH -sDEVICE=pngalpha -r300  -sOutputFile="fig/model_impuls1-.png" "fig/model_impuls1.pdf"" ---
+l. 315 --- needs --- "rungs -q -dNOPAUSE -dusecropbox -dBATCH -sDEVICE=pngalpha -r300  -sOutputFile="fig/model_impuls2-.png" "fig/model_impuls2.pdf"" ---
+l. 334 --- needs --- "rungs -q -dNOPAUSE -dusecropbox -dBATCH -sDEVICE=pngalpha -r300  -sOutputFile="fig/model_impuls4-.png" "fig/model_impuls4.pdf"" ---
+l. 352 --- needs --- "rungs -q -dNOPAUSE -dusecropbox -dBATCH -sDEVICE=pngalpha -r300  -sOutputFile="fig/model_impuls3-.png" "fig/model_impuls3.pdf"" ---
+--- characters ---
+Font("cmex","10","10","100")
+Font("cmr","7","7","100")
+Font("cmr","10","10","100")
+Font("cmmi","7","7","100")
+Font("cmmi","10","10","100")
+Font("cmsy","7","7","100")
+Font("cmsy","10","10","100")
+Font("cmr","12","12","120")
+Font("larm","1440","14","100")
+Font("cmbsy","10","10","144")
+Font("cmbsy","10","10","100")
+Font("cmbsy","7","7","100")
+Font("cmex","10","10","144")
+Font("cmex","7","7","100")
+Font("msam","10","10","144")
+Font("msam","10","10","100")
+Font("msam","7","7","100")
+Font("msbm","10","10","144")
+Font("msbm","10","10","100")
+Font("msbm","7","7","100")
+Font("cmmi","12","12","120")
+Font("cmsy","10","10","144")
+Font("labx","1728","17","100")
+Font("labx","1440","14","100")
+Font("larm","1200","12","100")
+Font("cmr","12","12","100")
+Font("cmmi","12","12","100")
+Font("larm","1000","10","100")
+Font("larm","0600","6","100")

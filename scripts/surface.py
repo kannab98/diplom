@@ -1,23 +1,50 @@
 
 import numpy as np
+import configparser
 from numpy import pi
 from scipy import interpolate,integrate
 from tqdm import tqdm
 # from water.spectrum import Spectrum
 from spectrum import Spectrum
 
+
 class Surface(Spectrum):
-    def __init__(self,  N=256, M=100, space='log',
-        random_phases = 1, 
-        whitening = None, wind = 0,cwm = None, **kwargs):
-        print('Начинаю подготовку...')
-        Spectrum.__init__(self,**kwargs)
+    def __init__(self,
+            conf_file = None  N = None, M = None, 
+            random_phases = None, kfrag = None, 
+            whitening = None, wind = None, 
+            **kwargs):
+
+
+        Spectrum.__init__(self,conf_file, **kwargs)
+
+        if conf_file != None:
+            config = configparser.ConfigParser()
+            config.read(conf_file)
+            config = config['Surface']
+
+
         self.get_spectrum()
-        self.N = N
-        self.M = M
+
+        if N == None:
+            self.N = config['N'] 
+        else:
+            self.N = N
+
+        if M == None:
+            self.M = config['M'] 
+        else:
+            self.M = M
+
         KT = self.KT
-        self.wind = wind # Направление ветра
-        if space=='log':
+
+        if wind == None:
+            self.wind = config['WindDirection']
+
+        if kfrag == None:
+            kfrag  = config['WaveNumberFragmentation']
+
+        if kfrag == 'log':
             self.k = np.logspace(np.log10(KT[0]), np.log10(KT[-1]),self.N + 1)
         else:
             self.k = np.linspace(KT[0], KT[-1],self.N + 1)
@@ -29,8 +56,10 @@ class Surface(Spectrum):
                U={}м/с\n".format(self.N,self.M,self.U10)
             )
 
+        if whitening == None:
+            whitening = config['SpectrumWhitening']
 
-        if whitening != None:
+        if whitening != False:
             if 'h' in whitening:
                 interspace = self.interspace(self.k, N, power=0)
                 self.k_heights = self.nodes(interspace,power=0)
@@ -48,11 +77,14 @@ class Surface(Spectrum):
         self.phi = np.linspace(0,2*np.pi,self.M + 1)
         self.phi_c = self.phi + self.wind
 
-        # случайные фазы
-        if random_phases == 0:
+
+        if random_phases == None:
+            random_phases = config['RandomPhases']
+
+        if random_phases == False:
             self.psi = np.array([
                     [0 for m in range(self.M) ] for n in range(self.N) ])
-        elif random_phases == 1:
+        elif random_phases == True:
             self.psi = np.array([
                 [ np.random.uniform(0,2*pi) for m in range(self.M)]
                             for n in range(self.N) ])
