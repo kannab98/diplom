@@ -15,7 +15,11 @@ class Pulse:
             return G0*np.exp(-2/self.gamma * np.sin(theta)**2)
     
     def R(self, R):
-        Rabs = np.sqrt(np.sum(R**2,axis=0))
+        R = np.array(R)
+        if len(R.shape)>1:
+            Rabs = np.sqrt(np.sum(R**2,axis=0))
+        else:
+            Rabs = np.sqrt(np.sum(R**2))
         return Rabs 
 
     def N(self,n):
@@ -23,6 +27,8 @@ class Pulse:
         return N
 
     def theta_calc(self, r, r0):
+        r = np.array(r)
+        r0 = np.array(r0)
         R = r - r0
         theta = R[-1,:]/self.R(R)
         return np.arccos(theta)
@@ -41,8 +47,12 @@ class Pulse:
         r0    = r0[:, index]
         n     = n [:, index]
         theta = theta[index]
+        if r.size > 0:
+            is_mirror = r.size
+        else:
+            is_mirror = 0
 
-        return r, r0, n, theta
+        return r, r0, n, theta, is_mirror
 
     def power(self, t, omega ,timp ,R, theta,):
         

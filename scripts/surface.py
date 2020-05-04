@@ -10,6 +10,7 @@ class Surface(Spectrum):
     def __init__(self,  N=256, M=100, space='log',
         random_phases = 1, 
         whitening = None, wind = 0,cwm = None, **kwargs):
+        print('Начинаю подготовку...')
         Spectrum.__init__(self,**kwargs)
         self.get_spectrum()
         self.N = N
@@ -20,6 +21,13 @@ class Surface(Spectrum):
             self.k = np.logspace(np.log10(KT[0]), np.log10(KT[-1]),self.N + 1)
         else:
             self.k = np.linspace(KT[0], KT[-1],self.N + 1)
+
+        print(\
+            "Параметры модели:\n\
+               N={},\n\
+               M={},\n\
+               U={}м/с\n".format(self.N,self.M,self.U10)
+            )
 
 
         if whitening != None:
@@ -50,10 +58,18 @@ class Surface(Spectrum):
                             for n in range(self.N) ])
 
 
-        # массив с амплитудами i-ой гармоники
+        print('Вычисление высот...')
         self.A = self.amplitude(self.k)
-        # угловое распределение
         self.F = self.angle(self.k,self.phi)
+        
+        print('Вычисление наклонов x...')
+        self.A_slopesxx = self.amplitude(self.k,method='xx')
+        self.F_slopesxx = self.angle(self.k,self.phi,method='xx')
+
+        print('Вычисление наклонов y...')
+        self.A_slopesyy = self.amplitude(self.k,method='yy')
+        self.F_slopesyy = self.angle(self.k,self.phi,method='yy')
+        print('Подготовка завершена.')
 
     def B(self,k):
           def b(k):
@@ -210,11 +226,11 @@ class Surface(Spectrum):
             F = self.F_slopesyy
         except:
 
-            self.A_slopesxx = self.amplitude(k,method='yy')
-            self.F_slopesxx = self.angle(k,phi,method='yy')
+            self.A_slopesyy = self.amplitude(k,method='yy')
+            self.F_slopesyy = self.angle(k,phi,method='yy')
 
-            A = self.A_slopesxx
-            F = self.F_slopesxx
+            A = self.A_slopesyy
+            F = self.F_slopesyy
 
         psi = self.psi
         self.surface = 0

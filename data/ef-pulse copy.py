@@ -1,12 +1,15 @@
 
 import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
 import sys
 import os    
-import numpy as np
+
 from numpy import pi
 sys.path.insert(0, '../scripts')
 from pulse import Pulse
-import pandas as pd
+from surface import Surface
+
 
 df = pd.read_csv('heights_big.tsv', sep ='\t', header = None)
 z = df.values
@@ -56,7 +59,10 @@ plt.ylabel('Y,м')
 
 
 # После сортировки
-r,r0,n,theta0 = pulse.mirror_sort(r,r0,n,theta0)
+r,r0,n,theta0,is_mirror = pulse.mirror_sort(r,r0,n,theta0)
+print(theta0.size)
+                                                                        
+                                                                              
 plt.scatter(r[0,:],r[1,:],theta0*100,color='r')
 # plt.savefig('../fig/model_mirrors4.png',dpi=900,bbox_inches='tight')
 
