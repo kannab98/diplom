@@ -3,11 +3,25 @@ import numpy as np
 from scipy import interpolate, integrate
 
 class Spectrum:
-    def __init__(self, U10 = 5, x = 20170, KT = None):
+    def __init__(self,conf_file = None, U10 = None, x = None, KT = None):
         # ускорение свободного падения.
         self.g = 9.81
+
+        if conf_file != None:
+            config = configparser.ConfigParser()
+            config.read(conf_file)
+            config = config['Spectrum']
+
         # скорость ветра на высоте 10 м над уровнем моря.
-        self.U10 = U10
+        if U10 == None:
+            self.U10 = config['WindSpeed']
+        else:
+            self.U10 = U10
+
+        if x == None:
+            self.x = config['WaveEvolution']
+        else:
+            self.x = x
         # коэффициент gamma (см. спектр JONSWAP)
         self.__gamma = self.Gamma(x)
         # коэффициент alpha (см. спектр JONSWAP)
