@@ -6,18 +6,24 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 
-sys.path.insert(0, '../scripts')
+from time import time
+p = os.path.join('..','scripts')
+sys.path.insert(0, p)
 from surface import  Surface
 
 
 offset = 10e8
 x = np.linspace(0+offset,50+offset,100)
-y = offset
+y = x
 t = 0
-# x,y  = np.meshgrid(x,y)
+x,y  = np.meshgrid(x,y)
 
-surface = Surface(1,0,1,1,conf_file='surfaces/surf_ku.ini',N=128,M=128)
-h1   = surface.heights_numba([x,y],t)
+
+surface = Surface(1,0,0,0,N=1024,M=128)
+start = time()
+h1   = surface.heights([x,y],t)
+stop = time()
+print(stop - start)
 
 # psi = surface.psi
 # h1   = surface.heights([x,y],t)
