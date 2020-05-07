@@ -11,11 +11,11 @@ from pulse import Pulse
 from surface import Surface
 
 
-N = 128
+N = 1024
 M = 128
 t = 0
 
-surface = Surface(N=N,M=M,U10=5,wind= 0)
+surface = Surface(1,0,1,1, N=N, M=M, conf_file='surfaces/surf_ku.ini')
 
 
 
@@ -34,9 +34,9 @@ P = np.zeros(T.size)
 
 mirrors = 0
 
-while mirrors<100000:
-    x = random.uniform(-Xmax, Xmax, size=(100000))
-    y = random.uniform(-Xmax, Xmax, size=(100000))
+while mirrors<10:
+    x = random.uniform(-Xmax, Xmax, size=(100))
+    y = random.uniform(-Xmax, Xmax, size=(100))
     z = surface.heights([x,y],t)
     zxx = surface.slopesxx([x,y],t)
     zyy = surface.slopesyy([x,y],t)
@@ -66,9 +66,6 @@ while mirrors<100000:
         plt.pause(20)
 
 plt.savefig('example-impulse.png')
-data = pd.DataFrame(P)
-data.to_csv(r'P.tsv',index=False,header=None,sep="\t") 
-data = pd.DataFrame(T)
-data.to_csv(r'T.tsv',index=False,header=None,sep="\t") 
-
+data = pd.DataFrame({'P': P, 'T': T})
+data.to_csv(r'impulse.tsv',index=False, sep="\t") 
 

@@ -10,11 +10,12 @@ from surface import  Surface
 from spectrum import Spectrum
 
 
-df = pd.read_csv('ku2d.tsv', sep='\t', header=0)
+df = pd.read_csv('ku_2d_heights.tsv', sep='\t', header=0)
 x1 = df.iloc[:,1].values
 y1 = df.iloc[:,2].values
 h1 = df.iloc[:,3].values
-s1 = df.iloc[:,4].values
+df = pd.read_csv('ku_2d_slopes.tsv', sep='\t', header=0)
+s1 = df.iloc[:,3].values
 
 n = int(x1.size**0.5)
 
@@ -23,11 +24,12 @@ y1 = y1.reshape((n,n))
 h1 = h1.reshape((n,n))
 s1 = s1.reshape((n,n))
 
-df = pd.read_csv('c2d.tsv', sep='\t', header=0)
+df = pd.read_csv('c_2d_heights.tsv', sep='\t', header=0)
 x2 = df.iloc[:,1].values
 y2 = df.iloc[:,2].values
 h2 = df.iloc[:,3].values
-s2 = df.iloc[:,4].values
+df = pd.read_csv('c_2d_slopes.tsv', sep='\t', header=0)
+s2 = df.iloc[:,3].values
 
 n = int(x2.size**0.5)
 
