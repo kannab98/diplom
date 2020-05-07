@@ -73,7 +73,8 @@ class Pulse:
         e0 = np.exp(1j*omega*(tau+ tau*np.cos(theta)) ) 
         
         
-        return np.sum(E0*e0)**2/2
+        E = np.sum(E0*e0)
+        return np.abs(E)**2/2
     
 
 

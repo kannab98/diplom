@@ -4,6 +4,7 @@ import configparser
 from numpy import pi
 from scipy import interpolate,integrate
 from tqdm import tqdm
+from numba import njit, prange
 # from water.spectrum import Spectrum
 from spectrum import Spectrum
 
@@ -235,6 +236,43 @@ class Surface(Spectrum):
         progress_bar.clear()
         progress_bar.close()
         return np.sqrt(2*integral)
+
+
+    def heights_numba(self, r,t):
+        r = np.array(r)
+        surface = np.empty(r.shape)
+
+        @njit(parallel=True)
+        def kernel(x, y, t, A, F, phi, k, psi, omega):
+            Z = np.empty((x.size,y.size))
+            for i in prange(x.size):
+                for j in prange(y.size):
+                    for n in prange(F.shape[0]):
+                        for m in prange(F.shape[1]):
+                            Z[i][j] += A[n] * \
+                            np.cos(
+                                +k[n]*(r[0][i]*np.cos(phi[m])+r[1][j]*np.sin(phi[m]))
+                                +psi[n][m]
+                                +omega*t) \
+                                * F[n][m]
+            return Z
+
+
+        k = self.k
+        phi = self.phi
+        try:
+            A = self.A
+            F = self.F
+        except:
+            A = self.amplitude(k,method='h')
+            F = self.angle(k,phi,method='h')
+        psi = self.psi
+        omega = self.omega_k(k)
+
+        surface = kernel(r[0],r[1], t, A, F, phi, k, psi, omega)
+
+        return surface
+    
 
 
     def heights(self,r,t,method='h'):
