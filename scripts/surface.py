@@ -9,14 +9,24 @@ from spectrum import Spectrum
 
 
 class Surface(Spectrum):
-    def __init__(self,
-            conf_file = None  N = None, M = None, 
+    def __init__(self, heights, slopes, slopesxx, slopesyy,
+            conf_file = None,  N = None, M = None, 
             random_phases = None, kfrag = None, 
             whitening = None, wind = None, 
+            custom_spectrum = None,
             **kwargs):
 
 
-        Spectrum.__init__(self,conf_file, **kwargs)
+
+        if custom_spectrum == None:
+            Spectrum.__init__(self,conf_file, **kwargs)
+            self.spectrum = self.get_spectrum()
+            KT = self.KT
+        else:
+            self.spectrum = custom_spectrum.get_spectrum()
+            KT = custom_spectrum.KT
+            self.KT = KT
+            self.U10 = custom_spectrum.U10
 
         if conf_file != None:
             config = configparser.ConfigParser()
@@ -24,42 +34,63 @@ class Surface(Spectrum):
             config = config['Surface']
 
 
-        self.get_spectrum()
+
 
         if N == None:
-            self.N = config['N'] 
+            try:
+                self.N = int(config['N'])
+            except:
+                self.N = 256
         else:
             self.N = N
 
         if M == None:
-            self.M = config['M'] 
+            try:
+                self.M = int(config['M'])
+            except: 
+                self.M = 128
         else:
             self.M = M
 
-        KT = self.KT
+
 
         if wind == None:
-            self.wind = config['WindDirection']
+            try:
+                self.wind = float(config['WindDirection'])
+                self.wind = np.deg2rad(self.wind)
+            except:
+                self.wind = 0
+        else:
+            self.wind = np.deg2rad(wind)
 
         if kfrag == None:
-            kfrag  = config['WaveNumberFragmentation']
+            try:
+                kfrag  = config['WaveNumberFragmentation']
+            except:
+                kfrag = 'log'
 
         if kfrag == 'log':
-            self.k = np.logspace(np.log10(KT[0]), np.log10(KT[-1]),self.N + 1)
+            self.k = np.logspace(np.log10(self.k_m/4), np.log10(self.k_edge['Ku']), self.N + 1)
+            self.k = self.k[ np.where(self.k <= self.k_edge[self.band]) ]
+            self.N = self.k.size - 1
         else:
             self.k = np.linspace(KT[0], KT[-1],self.N + 1)
 
         print(\
             "Параметры модели:\n\
-               N={},\n\
-               M={},\n\
-               U={}м/с\n".format(self.N,self.M,self.U10)
+                N={},\n\
+                M={},\n\
+                U={} м/с,\n\
+                Band={}".format(self.N,self.M,self.U10,self.band)
             )
 
         if whitening == None:
-            whitening = config['SpectrumWhitening']
+            try:
+                whitening = int(config['SpectrumWhitening'])
+            except:
+                whitening = 0
 
-        if whitening != False:
+        if whitening != 0:
             if 'h' in whitening:
                 interspace = self.interspace(self.k, N, power=0)
                 self.k_heights = self.nodes(interspace,power=0)
@@ -79,28 +110,50 @@ class Surface(Spectrum):
 
 
         if random_phases == None:
-            random_phases = config['RandomPhases']
+            try:
+                random_phases = int(config['RandomPhases'])
+            except:
+                random_phases = 1
 
-        if random_phases == False:
+        if random_phases == 0:
             self.psi = np.array([
                     [0 for m in range(self.M) ] for n in range(self.N) ])
-        elif random_phases == True:
+        elif random_phases == 1:
             self.psi = np.array([
                 [ np.random.uniform(0,2*pi) for m in range(self.M)]
                             for n in range(self.N) ])
 
+        print(\
+            "Методы:\n\
+                Случайные фазы     {}\n\
+                Отбеливание        {}\n\
+                Заостренная волна  {}\n\
+            ".format(bool(random_phases), bool(whitening), False)
+            )
+                            
 
-        print('Вычисление высот...')
-        self.A = self.amplitude(self.k)
-        self.F = self.angle(self.k,self.phi)
+
+        if heights == 1:
+            print('Вычисление высот...')
+            self.A = self.amplitude(self.k)
+            self.F = self.angle(self.k,self.phi)
         
-        print('Вычисление наклонов x...')
-        self.A_slopesxx = self.amplitude(self.k,method='xx')
-        self.F_slopesxx = self.angle(self.k,self.phi,method='xx')
+        if slopes == 1:
+            print('Вычисление полных наклонов...')
+            self.A_slopes = self.amplitude(self.k,method='s')
+            self.F_slopes = self.angle(self.k,self.phi,method='s')
 
-        print('Вычисление наклонов y...')
-        self.A_slopesyy = self.amplitude(self.k,method='yy')
-        self.F_slopesyy = self.angle(self.k,self.phi,method='yy')
+        if slopesxx == 1:
+            print('Вычисление наклонов x...')
+            self.A_slopesxx = self.amplitude(self.k,method='xx')
+            self.F_slopesxx = self.angle(self.k,self.phi,method='xx')
+
+        if slopesyy == 1:
+            print('Вычисление наклонов y...')
+            self.A_slopesyy = self.amplitude(self.k,method='yy')
+            self.F_slopesyy = self.angle(self.k,self.phi,method='yy')
+
+
         print('Подготовка завершена.')
 
     def B(self,k):
@@ -210,7 +263,6 @@ class Surface(Spectrum):
                 progress_bar.update(1)
         progress_bar.close()
         progress_bar.clear()
-        print()
         return self.surface
 
     def slopesxx(self,r,t):
@@ -263,6 +315,40 @@ class Surface(Spectrum):
 
             A = self.A_slopesyy
             F = self.F_slopesyy
+
+        psi = self.psi
+        self.surface = 0
+        progress_bar = tqdm( total = N*M,  leave = False )
+        for n in range(N):
+            for m in range(M):
+                self.surface += A[n] * \
+                np.cos(
+                    +k[n]*(r[0]*np.cos(phi[m])+r[1]*np.sin(phi[m]))
+                    +psi[n][m]
+                    +self.omega_k(k[n])*t) \
+                    * F[n][m]
+                progress_bar.update(1)
+        progress_bar.close()
+        progress_bar.clear()
+        print()
+        return self.surface
+
+    def slopes(self,r,t):
+        N = self.N
+        M= self.M
+        k = self.k
+        phi = self.phi
+
+        try:
+            A = self.A_slopes
+            F = self.F_slopes
+        except:
+
+            self.A_slopes = self.amplitude(k,method='s')
+            self.F_slopes = self.angle(k,phi,method='s')
+
+            A = self.A_slopes
+            F = self.F_slopes
 
         psi = self.psi
         self.surface = 0

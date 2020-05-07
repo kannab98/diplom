@@ -18,7 +18,7 @@ t = 0
 x = np.linspace(-5500,5500, 100)
 y = np.linspace(-5500,5500, 100)
 x,y  = np.meshgrid(x,y)
-surface = Surface(N=N,M=M,U10=5,wind= 0)
+surface = Surface(N=N, M=M, U10=5, wind = 0)
 
 from time import time
 start = time()

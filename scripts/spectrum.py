@@ -1,9 +1,10 @@
 
+import configparser
 import numpy as np
 from scipy import interpolate, integrate
 
 class Spectrum:
-    def __init__(self,conf_file = None, U10 = None, x = None, KT = None):
+    def __init__(self,conf_file = None, U10 = None, x = None, band = None, KT = None):
         # ускорение свободного падения.
         self.g = 9.81
 
@@ -14,14 +15,27 @@ class Spectrum:
 
         # скорость ветра на высоте 10 м над уровнем моря.
         if U10 == None:
-            self.U10 = config['WindSpeed']
+            try:
+                self.U10 = str2num(config['WindSpeed'])
+            except:
+                self.U10 = 5
         else:
             self.U10 = U10
 
         if x == None:
-            self.x = config['WaveEvolution']
-        else:
-            self.x = x
+            try:
+                x = str2num(config['WaveEvolution'])
+            except:
+                x = 20170
+
+        self.band = band
+        if self.band == None:
+            try:
+                self.band = str(config['Band'])
+            except:
+                self.band = 'Ku'
+
+
         # коэффициент gamma (см. спектр JONSWAP)
         self.__gamma = self.Gamma(x)
         # коэффициент alpha (см. спектр JONSWAP)
@@ -30,8 +44,24 @@ class Spectrum:
         self.omega_m = self.Omega(x) * self.g/self.U10
         # координата пика спектра по волновому числу
         self.k_m = self.k_max( self.omega_m )
+        self.k_edge = {} 
+
+        self.k_edge['Ku'] = (
+            68.13 + 72.9*self.k_m + 12.9*self.k_m**2*np.log(self.k_m) - 
+            -0.396*np.log(self.k_m)/self.k_m - 0.42/self.k_m
+            )
+        self.k_edge['C'] = (
+            2.74 - 2.26*self.k_m + 15.498*np.sqrt(self.k_m) + 1.7/np.sqrt(self.k_m) -
+            0.00099*np.log(self.k_m)/self.k_m**2
+            )
+        self.k_edge['X'] = ( 25.82 + 25.43*self.k_m - 16.43*self.k_m*np.log(self.k_m) + 1.983/np.sqrt(self.k_m)                
+            + 0.0996/self.k_m**1.5
+            )
+
+        print(self.k_edge)
+        
         # массив с границами моделируемого спектра.
-        self.KT = np.array([self.k_m/4,self.k_m*1000])
+        self.KT = np.array([self.k_m/4, self.k_edge[self.band]])
         if KT != None:
             self.KT = np.array(KT)
         # k0 -- густая сетка, нужна для интегрирования и интерполирования
