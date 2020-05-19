@@ -58,7 +58,7 @@ class Spectrum:
             + 0.0996/self.k_m**1.5
             )
 
-        print(self.k_edge)
+        # print(self.k_edge)
         
         # массив с границами моделируемого спектра.
         self.KT = np.array([self.k_m/4, self.k_edge[self.band]])
