@@ -1,99 +1,251 @@
-from numba import njit, prange, cuda, float32,float64, void,guvectorize
-
+from numba import  cuda, float32, float64
+import os
+import pandas as pd
 import numpy as np
 from time import time
-from time import sleep
+import datetime
 from surface import Surface
 import math
 import matplotlib.pyplot as plt
 
 
 
-@njit(parallel=True,cache=False)
-def kernel_cpu(acc,x,y,phi,psi,k,A,F):
-    for i in prange(x.size):
-        for j in prange(y.size):
-            for n in prange(F.shape[0]):
-                for m in prange(F.shape[1]):
-                    kr = k[n]*(x[i]*np.cos(phi[m])+y[j]*np.sin(phi[m]))
-                    acc[i,j] += F[n,m] * np.cos(kr + psi[n,m]) * A[n]
-    return acc
-
-# @cuda.jit
-# def kernel_gpu(acc,x,y,phi,psi,k,A,F):
-
-
-#     i,j = cuda.grid(2)
-
-#     if i < acc.shape[0] and j < acc.shape[1]:
-#         for n in range(k.size):
-#             for m in range(phi.size):
-#                 kr = k[n]*(x[i]*math.cos(phi[m])+y[j]*math.sin(phi[m]))
-#                 acc[i,j] += F[n,m] * math.cos(kr + psi[n,m]) * A[n]
-TPB = 16
-def kernel_gpu(acc,x,y,k):
+TPB=16
+@cuda.jit
+def kernel(ans, x, y, k, phi, A, F, psi):
 
     i,j = cuda.grid(2)
 
     if i >= x.size and j >= y.size:
         return
 
-    tx = cuda.threadIdx.x
-    ty = cuda.threadIdx.y
-    bpg = cuda.gridDim.x    # blocks per grid
+    tmp = 0
 
-    tmp = 0.
+    # Выделение памяти в общей памяти блока
+    # sphi = cuda.shared.array(shape=1, dtype=float32)
+    # sk  = cuda.shared.array(shape=1, dtype=float32)
+    # sF = cuda.shared.array(shape=PHI_SIZE, dtype=float32)
+    # spsi = cuda.shared.array(shape=PHI_SIZE, dtype=float32)
+
     for n in range(k.size):
-        tmp += k[n]*(x[i]+y[j])
-    
+        # Загрузка в общую память блока
+        # sphi[0] = phi[n]
+        # sk[0] = k[n]
+        # for m in range(phi.size):
+        #     sF[m] = F[n][m]
+        #     spsi[m] = psi[n][m]
+        # Ждем, пока все потоки в блоке закончат загрузку данных
+        cuda.syncthreads()
+        for m in range(phi.size):
+            kr = k[n]*(x[i]*math.cos(phi[m])+y[j]*math.sin(phi[m]))      
+            tmp +=  math.cos(kr + psi[n][m]) * A[n] * F[n][m]
+        # Ждем, пока все потоки в блоке закончат вычисления
+        cuda.syncthreads()
+
+    ans[j,i] = tmp
 
 
 
-surface = Surface(1,0,0,0, N=16, M=16, wind=0,random_phases=0)
-N = surface.N
-M = surface.N
-A = surface.A
-psi = surface.psi
-phi = surface.phi
-F = surface.F
-offset = 1e8
-x   = np.linspace(0,100,16) + offset
-y   = np.linspace(0,100,16) + offset
+@cuda.jit
+def kernelxx(ans, x, y, k, phi, A, F, psi):
+
+    i,j = cuda.grid(2)
+
+    if i >= x.size and j >= y.size:
+        return
+
+    tmp = 0
+
+    for n in range(k.size):
+        cuda.syncthreads()
+        for m in range(phi.size):
+            kr = k[n]*(x[i]*math.cos(phi[m]))      
+            tmp +=  math.cos(kr + psi[n][m]) * A[n] * F[n][m]
+        cuda.syncthreads()
+
+    ans[j,i] = tmp
+
+
+@cuda.jit
+def kernelyy(ans, x, y, k, phi, A, F, psi):
+
+    i,j = cuda.grid(2)
+
+    if i >= x.size and j >= y.size:
+        return
+
+    tmp = 0
+
+    for n in range(k.size):
+        cuda.syncthreads()
+        for m in range(phi.size):
+            kr = k[n]*(y[i]*math.sin(phi[m]))      
+            tmp +=  math.cos(kr + psi[n][m]) * A[n] * F[n][m]
+        cuda.syncthreads()
+
+    ans[j,i] = tmp
+
+
+        
+surface = Surface(1,1,1,1, N=2048, M=256, wind=30, random_phases=0, band = 'C')
+
 k = surface.k
+phi = surface.phi
+A = surface.A
+A_s = surface.A_slopes
+F_s = surface.F_slopes
+A_sxx = surface.A_slopesxx
+F_sxx = surface.F_slopes
+
+A_syy = surface.A_slopesxx
+F_syy = surface.F_slopes
+
+F = surface.F
+PHI_SIZE = F.shape[1]
+psi = surface.psi
+
+k = cuda.to_device(k)
+phi = cuda.to_device(phi)
+
+A = cuda.to_device(A)
+A_s = cuda.to_device(A_s)
+A_sxx = cuda.to_device(A_sxx)
+A_syy = cuda.to_device(A_syy)
+
+F = cuda.to_device(F)
+F_s = cuda.to_device(F_s)
+F_sxx = cuda.to_device(F_sxx)
+F_syy = cuda.to_device(F_syy)
+
+psi = cuda.to_device(psi)
 
 
-an_array = np.zeros((x.size,y.size))
+offsetx = 1e9*np.random.uniform()
+offsety = 1e9*np.random.uniform()
+x0 = np.linspace(0,50,128) + offsetx
+y0 = np.linspace(0,50,128) + offsety
+x = cuda.to_device(x0)
+y = cuda.to_device(y0)
+
+
 threadsperblock = (TPB, TPB)
-blockspergrid_x = math.ceil(k.size / threadsperblock[0])
-blockspergrid_y = math.ceil(phi.size / threadsperblock[1])
+blockspergrid_x = math.ceil(x.size / threadsperblock[0])
+blockspergrid_y = math.ceil(y.size / threadsperblock[1])
 blockspergrid = (blockspergrid_x, blockspergrid_y)
-start = time()
-# kernel_gpu[blockspergrid, threadsperblock](an_array,x,y,phi,psi,k,A,F)
-kernel_gpu[blockspergrid, threadsperblock](an_array,x,y)
-stop = time()
-print(stop - start)
-plt.figure()
-X,Y = np.meshgrid(x,y)
-# plt.contourf(X,Y,an_array,levels=100)
-plt.pcolormesh(X,Y,an_array)
-plt.colorbar()
 
 
+print('Поверхность высот')
+h = np.zeros((x.size,y.size))
+kernel[blockspergrid, threadsperblock](h,x,y,k,phi,A,F,psi)
+
+print('Поверхность наклонов')
+s = np.zeros((x.size,y.size))
+kernel[blockspergrid, threadsperblock](s,x,y,k,phi,A_s,F_s,psi)
+
+print('Поверхность наклонов X')
+sxx = np.zeros((x.size,y.size))
+kernel[blockspergrid, threadsperblock](sxx,x,y,k,phi,A_sxx,F_sxx,psi)
+
+print('Поверхность наклонов Y')
+syy = np.zeros((x.size,y.size))
+kernel[blockspergrid, threadsperblock](syy,x,y,k,phi,A_syy,F_syy,psi)
+
+x = x0 - offsetx
+y = y0 - offsety
+
+# print(np.std(z),np.mean(z))
 
 # plt.figure()
+# X,Y = np.meshgrid(x,y)
 # start = time()
-# an_array=kernel_cpu(an_array,x,y,phi,psi,k,A,F)
-# stop = time()
-# print(stop - start)
-# # plt.contourf(X,Y,an_array,levels=100)
-# plt.pcolormesh(X,Y,an_array)
-# plt.colorbar()
+# Z = surface.heights([X,Y],0) 
+# end = time()
 
-# plt.figure()
-# a=surface.heights([X,Y],0)
-# plt.pcolormesh(X,Y,a)
-# plt.colorbar()
+
+
+datadir = 'data' + datetime.datetime.now().strftime("%m%d_%H%M")
+os.makedirs(datadir)
+
+modeldatadir = os.path.join(datadir,'model_data')
+premodeldatadir = os.path.join(datadir,'parameters')
+os.makedirs(modeldatadir)
+os.makedirs(premodeldatadir)
+
+#############################################
+x,y = np.meshgrid(x,y)
+data = pd.DataFrame({'x': x.flatten(),'y': y.flatten(), 'heights': h.flatten() })
+data.to_csv(os.path.join(modeldatadir,'heights.tsv'), index=False, sep='\t')
+
+data = pd.DataFrame({'x': x.flatten(),'y': y.flatten(), 'slopes': s.flatten() })
+data.to_csv(os.path.join(modeldatadir,'slopes.tsv'), index=False, sep='\t')
+
+data = pd.DataFrame({'x': x.flatten(),'y': y.flatten(), 'slopesxx': sxx.flatten() })
+data.to_csv(os.path.join(modeldatadir,'slopesxx.tsv'), index=False, sep='\t')
+
+data = pd.DataFrame({'x': x.flatten(),'y': y.flatten(), 'slopesxx': syy.flatten() })
+data.to_csv(os.path.join(modeldatadir,'slopesyy.tsv'), index=False, sep='\t')
+
+plt.figure()
+plt.contourf(x,y,h,levels=100)
+plt.xlabel('x')
+plt.ylabel('y')
+bar = plt.colorbar()
+bar.set_label('высоты')
+plt.savefig(os.path.join(modeldatadir,'heights.png'), dpi=300, bbox_inches='tight')
+
+plt.figure()
+plt.contourf(x,y,s,levels=100)
+plt.xlabel('x')
+plt.ylabel('y')
+bar = plt.colorbar()
+# bar.set_label('наклоны')
+plt.savefig(os.path.join(modeldatadir,'slopes.png'), dpi=300, bbox_inches='tight')
+
+plt.figure()
+plt.contourf(x,y,sxx,levels=100)
+plt.xlabel('x')
+plt.ylabel('y')
+bar = plt.colorbar()
+bar.set_label('наклоны X')
+plt.savefig(os.path.join(modeldatadir,'slopesxx.png'), dpi=300, bbox_inches='tight')
+
+
+plt.figure()
+plt.contourf(x,y,syy,levels=100)
+plt.xlabel('x')
+plt.ylabel('y')
+bar = plt.colorbar()
+bar.set_label('наклоны Y')
+plt.savefig(os.path.join(modeldatadir,'slopesyy.png'), dpi=300, bbox_inches='tight')
+
+plt.figure()
+plt.loglog(surface.k, surface.spectrum(k))
+plt.xlabel('k')
+plt.ylabel('S')
+plt.savefig(os.path.join(modeldatadir,'spectrum.png'), dpi=300, bbox_inches='tight')
+
+#############################################
+data = pd.DataFrame({'k': surface.k})
+data.to_csv(os.path.join(premodeldatadir,'k.tsv'), index=True, sep='\t')
+data = pd.DataFrame({'A': surface.A})
+data.to_csv(os.path.join(premodeldatadir,'A.tsv'), index=True, sep='\t')
+data = pd.DataFrame({'phi': surface.phi})
+data.to_csv(os.path.join(premodeldatadir,'phi.tsv'), index=True, sep='\t')
+data = pd.DataFrame({'psi': surface.psi.flatten()})
+data.to_csv(os.path.join(premodeldatadir,'psi.tsv'), index=True, sep='\t')
+data = pd.DataFrame({'F': surface.F.flatten()})
+data.to_csv(os.path.join(premodeldatadir,'F.tsv'), index=True, sep='\t')
+
+sigma = np.sum(surface.A**2/2)
+data  = pd.DataFrame({'Band': surface.band,
+                      'N': surface.N, 
+                      'M':surface.M, 
+                      'U':surface.U10, 
+                      'sigma^2-practice': sigma,
+                      'sigma^2-theory': surface.sigma_sqr},index=[0],)
+data.to_csv(os.path.join(premodeldatadir,'params'+'.tsv'), index=False, sep='\t')
+
+# plt.contourf(X,Y,Z,levels=100)
+# print(std2/std1)
+
 plt.show()
-
-
-

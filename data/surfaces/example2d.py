@@ -10,7 +10,7 @@ from spectrum import Spectrum
 
 
 offset = 10e8
-x = np.linspace(0,25,500)
+x = np.linspace(0,25,100)
 y = x
 t = 0
 x,y  = np.meshgrid(x,y)

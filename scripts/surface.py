@@ -22,6 +22,7 @@ class Surface(Spectrum):
         if custom_spectrum == None:
             Spectrum.__init__(self,conf_file, **kwargs)
             self.spectrum = self.get_spectrum()
+            self.sigma_sqr = self.sigma_sqr
             KT = self.KT
         else:
             self.spectrum = custom_spectrum.get_spectrum()
@@ -82,7 +83,9 @@ class Surface(Spectrum):
                 N={},\n\
                 M={},\n\
                 U={} м/с,\n\
-                Band={}".format(self.N,self.M,self.U10,self.band)
+                Band={}\n\
+                sigma={}\n\
+                mean=0".format(self.N,self.M,self.U10,self.band,self.sigma_sqr)
             )
 
         if whitening == None:
@@ -384,3 +387,17 @@ class Surface(Spectrum):
         progress_bar.clear()
         print()
         return self.surface
+
+# surface = Surface(1,0,0,0, N=2048, M=1024, wind=0,random_phases=0)
+
+# k = surface.k
+# phi = surface.phi
+# A = surface.A
+# F = surface.F
+# psi = surface.psi
+# data  = pd.DataFrame({'k':k[0:-1],  'A':A})
+# data.to_csv(r'kA.tsv', sep='\t',index=False)
+# data  = pd.DataFrame({'phi':phi})
+# data.to_csv(r'phi.tsv', sep='\t',index=False)
+# data  = pd.DataFrame({'F':F.flatten(),'psi':psi.flatten()})
+# data.to_csv(r'Fpsi.tsv', sep='\t',index=False)
