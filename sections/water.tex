@@ -155,13 +155,6 @@ c погрешностью, пропорциональной $\Delta A_n \sim  \
 \end{equation}
 
 
-Такой подход является одним из самых простых и эффективных, но у
-него есть существенный недостаток – моделируемая поверхность получается симметричной, хотя реальная поверхность асимметрична: передний склон
-волны более крутой и короткий относительной заднего склона.
-Кроме того, площадь гребней меньше площади впадин, что также отражается при
-таком моделировании. Эти отличия модельной поверхности от морской поверхности
-не позволят смоделировать так называемые поправки на состояние морской
-поверхности \cite{cite:12}-\cite{cite:13}. 
 \begin{figure}[ht]
         \centering
         \includegraphics[width=0.6\linewidth]{fig/full_spectrum1.png}
@@ -245,7 +238,8 @@ $\kappa_m$}
 гармоник. Надо отметить, что с ростом скорости ветра число используемых
 гармоник, необходимых для получения одинакового качества моделирования, будет
 возрастать. Это обусловлено тем, что увеличивается интервал волновых чисел
-$\kappa$, на котором определен спектр волнения (см. рис. 2). 
+$\kappa$, на котором определен спектр волнения (см. рис.
+\ref{fig:spectrum_heights}). 
 
 Второй вопрос, который надо решить, состоит в том, как расположить гармоники по оси волновых чисел. 
 
@@ -256,32 +250,32 @@ $\kappa$, на котором определен спектр волнения (
 \end{equation}
 $\kappa_{cut}$ -- граничное волновое число, $N$ -- число грамоник.
 
-Однако если посмотреть на форму спектра, то задача усложняется тем, что спектр высот является узким и в основном сосредоточен вблизи пика (длинноволновая составляющая спектра волнения). Поэтому вариант «логарифмического» шага смотрится логичным и положения гармоник вычисляются следующим образом:
+Однако если посмотреть на форму спектра, то задача усложняется тем, что спектр высот является узким и в основном сосредоточен вблизи пика (длинноволновая составляющая спектра волнения). Поэтому вариант «логарифмического» шага смотрится логичным и положения гармоник вычисляются следующим образом
 \begin{equation}
-    \Delta \kappa = \frac{k_{cut}}{(N-1)}, \text{ где}
+    k_i = k_{i-1} \cdot \Delta  \kappa
 \end{equation}
 
 Критерием качества моделирования, а также оптимального выбора числа гармоник
 была выбрана близость следующих корреляционных функций высот:
+\begin{equation}
+    \begin{gathered}
+        \label{eq:KK}
+        K[\rho] = \int\limits_{-\infty}^{\infty} S(\kappa) \cos(\kappa\rho) \dd \kappa\\
+        \tK(\rho) = \sum\limits_{n=1}^{N} \frac{A_n^2}{2} \cos(\kappa_n \rho)
+    \end{gathered}
+\end{equation}
 
-\begin{gather}
-    \label{eq:KK}
-    K[\rho] = \int\limits_{-\infty}^{\infty} S(\kappa) \cos(\kappa\rho) \dd \kappa\\
-    \tK(\rho) = \sum\limits_{n=1}^{N} \frac{A_n^2}{2} \cos(\kappa_n \rho)
-\end{gather}
 
 
 Сравнение корреляционной функции $\tK[\rho]$ полученной по модели, с
 теоретической корреляционной функцией $K[\rho]$   позволит оценить качество модели.
 
-На рис.(5) показаны корреляционные функции волнения с разным числом гармоник в
-случае равномерного выбора шага. !! не говорится о параметрах счета - ветер?
-граничное волновое число? и т.д.  На рис. 6,  7 и 8  показаны корреляционные по
+На рис. 5 показаны корреляционные функции волнения с разным числом гармоник в
+случае равномерного выбора шага. На рис. 6,  7 и 8  показаны корреляционные по
 другим моделям.
 
 Как было отмечено выше, с увеличением скорости ветра число гармоник, необходимых для получения одинакового качества моделирования, возрастает. На рис.(9) продемонстрирован этот эффект. 
 Хорошо заметно, что с ростом скорости ветра $K[\rho]$   медленнее спадает к нулю,
-%а значит $\tK ̃[\rho]$ требует большего количества синусоид для качественного моделирования.
 
 \subsection{Метод <<отбеливания>> спектра для одной переменной}%
 \label{sec:metod_otbelivaniia_spektra_}
@@ -414,11 +408,11 @@ $[\kappa_{min},
     \label{fig:ki}
 \end{figure}
 
-\begin{figure}[ht]
+\begin{figure}[h!]
     \centering
     \begin{minipage}{0.49\linewidth}
         \centering
-        \includegraphics[width=\linewidth]{fig/correlation_height5_slopes2.png}
+        \includegraphics[width=\linewidth]{fig/correlation_height_slopes2.png}
 
         (a)
     \end{minipage}
@@ -458,40 +452,44 @@ $[\kappa_{min},
 Тогда, гармоники, определяющие минимум первого слагаемого описываются
 формулой \eqref{eq:ki}, а минимум второго -- формулой \eqref{eq:ki_slopes}.  
 
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=0.6\linewidth]{fig/fig1}
-    \caption{}
-    \label{fig:}
+\begin{figure}[h!]
+    \begin{subfigure}{0.49\linewidth}
+        \includegraphics[width=\linewidth]{fig/fig1}
+        \caption{}
+    \end{subfigure}
+    \begin{subfigure}{0.49\linewidth}
+        \includegraphics[width=\linewidth]{fig/fig2}
+        \caption{}
+    \end{subfigure}
+    \caption{Расположение гармоник для отбеливания (a) высот, (b) наклонов}
 \end{figure}
-
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=0.6\linewidth]{fig/fig2}
-    \caption{}
-    \label{fig:}
-\end{figure}
-
-
-\begin{figure}[ht]
+\begin{figure}[h!]
     \centering
     \includegraphics[width=0.6\linewidth]{fig/fig3}
-    \caption{}
+    \caption{Совмещенное расположение гармоник для отбеливания}
     \label{fig:}
 \end{figure}
 
 Таким образом, двумерный вариант метода отбеливания является эффективным
-способом выбора расположения грамоник для численного моделирования морской
-поверхности, задаваемой оделью спектра.
+способом выбора расположения гармоник для численного моделирования морской
+поверхности, задаваемой моделью спектра.
 
 
 
 
-\subsection{Choppy Wave Model}
-%\subsection{Обычный CWM}%
+\subsection{Заостренная морская поверхность}
+Как говорилось ранее, при моделировании морской поверхности синусоидами мы
+получаем нулевое среднее значение высот, что не позволяет смоделировать
+поправки на состояние морской поверхности. 
 
-Рассмотрим задачу моделирования одномерной поверхности суммой гармоник 
- с детерменированными амплитудами и случайными фазами
+Ниже предлагается модель поверхности, с помощью которой эти поправки можно
+учесть.
+
+
+\subsubsection{Двумерный случай}%
+\label{ssub:odnomernyi_sluchai}
+
+Рассмотрим для начала задачу моделирования двумерной поверхности суммой гармоник с детерменированными амплитудами и случайными фазами
  \begin{equation}
      z = \sum\limits_{j=0}^{N} A_j \cos(k_j x + \psi_j)
  \end{equation}
@@ -502,7 +500,7 @@ $[\kappa_{min},
 \end{equation}
 где $D(x)$ горизонтальное смещение
 \begin{equation}
-    D(x) =  \frac{i}{2\pi} \int\limits_{-\infty}^{\infty}   S(k) e^{ikx} \dd{k},
+    D(x) =  \frac{i}{2\pi} \int\limits_{-\infty}^{\infty}   \hat z e^{ikx} \dd{k},
 \end{equation}
 а $S(k)$ -- прямое Фурье преобразование исходной поверхности
 \begin{equation}
@@ -518,114 +516,262 @@ $[\kappa_{min},
         z = \sum\limits_{j=0}^{N} \cos(k_j x_{0} + \psi_j)
     \end{cases}
 \end{equation}
-Это и есть Choppy Wave Model. График подобной заостренной поверхности 
-изображен на рис.\ref{fig:1}
 
+Иными словами мы будем моделировать волнение не суммой гармонических функций, а 
+суммой трохоид. 
 
-Рассчитаем спектр  поверхности, построенной по CWM.
-
- Спектр поверхности в новых координатах 
- \begin{equation}
-     \label{eq:S_cwm}
-     \widehat S(k) = \int\limits_{-\infty}^{\infty} z(x) \cdot  
-     e^{-ikx} \qty[ 1 + D'(x)]
-     \dd{x}  = S(k) + \int\limits_{-\infty}^{\infty} z(x) \cdot D'(x)  
-     e^{-ikx}\dd{x},
- \end{equation}
-
- где $S(k)$-- исходный спектр (например, JONSWAP).
-
- Пусть спектр $S(k)$ состоит из всего одной гармоники. Тогда, мы можем его
- записать в виде
- \begin{equation}
-     S(k) = \pi A_{0}( \delta(k-k_{0}) + \delta(k+k_{0}))
- \end{equation}
-
- Для такого спектра функция горизонтального смещения и её производная равны:
- \begin{equation}
-     D(x) = -A_{0} \sin(k_{0} x), \quad
-     D'(x) = -A_{0} k_{0} \cos(k_{0} x)
- \end{equation}
-
- Запишем прямое преобразование Фурье для функции $D'(x)$:
- \newcommand{\D}{\mathfrak{D}}
-  \begin{equation}
-     \D(k) = \int\limits_{-\infty}^{\infty} D'(x) e^{-ikx} \dd x =
-     - \pi A_{0}k_{0}\qty[\delta(k-k_{0})+\delta(k+k_{0})]
- \end{equation}
-
- Перепишем \eqref{eq:S_cwm}, применяя теорему о свертке:
+Для того, чтобы наше преобразование $D(x)$ имело физический смысл
+необходимо, чтобы для каждой $j$-ой гармоники выполнялось соотношение 
 \begin{equation}
-    \widehat S(k) = S(k) +
-    \frac{1}{2\pi} \int\limits_{-\infty}^{\infty} S(k-\xi) \D(\xi) \dd \xi 
+    A_j k_j \ll 1 
 \end{equation}
+
+\paragraph{Статистические моменты}%
+
+Запишем характеристическую функцию нового случайного процесса $z(x_0(x))$ по
+определению
+ \begin{equation}
+    \label{eq:Phi1}
+    \Phi(i\theta) = \mean{ e^{i \theta z(x_0(x))}}
+\end{equation}
+Поскольку процесс $z(x_0)$ стационарный, то от \eqref{eq:Phi1} можно перейти к
+\begin{equation}
+    \label{eq:Phi2}
+    \Phi(i\theta) = \lim_{L \to \infty} \frac{1}{2L} \int\limits_{-L}^{L} e^{i \theta z(x_0)
+    }\dd x = 
+    \lim_{L \to \infty} \frac{1}{2L} \int\limits_{-L}^{L} e^{i \theta z(x_0)} \qty( 1 + D'(x_0) ) \dd x_0
+\end{equation}
+
+Поскольку $z(x_0)$ стационарный процесс, а  $D'(x_0)$ стационарен по нашему
+определению, то  \eqref{eq:Phi2} преобразуется к виду
+\begin{equation}
+    \label{eq:Phi}
+    \Phi(i\theta) = (1 - i \theta \sigma_1^2) 
+    \exp(-\frac{1}{2} \theta^2 \sigma_0^2),
+\end{equation}
+где $\sigma^2_n = \int\limits_{-\infty}^{\infty}  k^n S(k) \dd k$ -- момент
+$n$-го порядка спектра волнения.
+
+Зная характеристическую функцию не сложно получить необходимые статистические
+моменты дифференцируя \eqref{eq:Phi}
+\begin{equation}
+    m_n = i^{-n} \dv[n]{\Phi(i\theta)}{\theta} \eval_{\theta = 0}
+\end{equation}
+
+Следовательно, среднее и дисперсия случаного процесса $z(x_0)$ будут
+равны
 \begin{gather}
-    \widehat S(k) = S(k) + \frac{A_{0}}{2} \qty[\D(k-k_{0}) + \D(k+k_{0})] = \\
-    S(k) - \frac{\pi A_{0}^2}{2} k_{0} \qty[
-    \delta(k-2k_{0}) +
-    \delta(k+2k_{0}) +
-    \delta(k) +
-    \delta(k) 
-    ] = \\
-    \pi A_{0}[\delta(k+k_{0})+ \delta(k-k_{0})] -
-    \frac{\pi A_{0}^2k_{0}}{2}\qty[ \delta(k+2k_{0}) + 2\delta(k) +
-    \delta(k-2k_{0})]
-\end{gather}
-Итак, для частного случае, когда моделируемая поверхность представляет всего
-одну гармонику $z(x) = A_{0}\cos(k_{0}x)$
-Мы получили модифицированный спектр:
-\begin{equation}
-    \widehat S = 
-    \pi A_{0}[\delta(k+k_{0})+ \delta(k-k_{0})] -
-    \frac{\pi A_{0}^2k_{0}}{2}\qty[ \delta(k+2k_{0}) + 2\delta(k) +
-    \delta(k-2k_{0})]
-\end{equation}
-
-Очевидно, что если поверхность будет представляться суммой гармоник
-$z(x) = \sum\limits_{n=0}^{N} A_n \cos{k_n x}$,
-спектр примет вид
-\begin{equation}
-    \widehat S = 
-    \underbrace{
-    \sum\limits_{n=0}^{N} \pi A_n \qty[\delta(k+k_n) + \delta(k-k_n) ]
-}_{S(k)}
-\underbrace{
-- \sum\limits_{n=0}^{N} \frac{\pi A_{n}^2 k_n}{2}
-\qty[ \delta(k+2k_{n}) 
-    + 2\delta(k) 
-+ \delta(k-2k_{n})]
-}_{S_{CWM}(k)}
-\end{equation}
-
-Добавка к исходному спектру выглядит следующим образом
-\begin{gather}
-    \boxed{
-    S_{CWM}(k) = - \sum\limits_{n=0}^{N} \pi A_{n}^2 k_n \delta(k) - 
-    \sum\limits_{n=0}^{N} \frac{\pi A_n^2 k_n}{2} \qty[\delta(k+2k_n) +
-    \delta(k-2k_n)]
-}
+    \label{eq:}
+    \mean{z} = - \sigma_1^2, \quad \mean{z^2} = \sigma_0^2 \\
+    \mean{z^2} - \mean{z}^2 = \sigma_0^2 - \sigma_1^4
 \end{gather}
 
-\begin{figure}[ht]
-    \begin{minipage}{0.49\linewidth}
-        \centering
-        \includegraphics[width=\linewidth]{fig/cwm_surface.pdf}
+Также не сложно получить связь наклонов в смещенных координатах $x$ с наклонами
+в несмещенных координатах $x_0$ пользуясь определением наклонов
+ \begin{equation}
+    \label{eq:}
+    z'(x) = \dv{z(x)}{x} = \frac{z'(x_0)}{1 + D'(x_0)}
+\end{equation}
 
-        (a)
-        \caption{Заостренная синусоида (CWM) в сравнении обычной}
-        \label{fig:1}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.49\linewidth}
-        \centering
-        \includegraphics[width=\linewidth]{fig/cwm_spectrum.pdf}
 
-        (b)
-        \caption{Спектр заостренной синусоиды}
-        \label{fig:2}
-    \end{minipage}
+
+\subsubsection{Трехмерный случай}%
+
+Для трехмерного случая Пирсон \cite{cite:pierson} предоставил решение
+линеаризованных уравнений движения для невязкой жидкости в лагранжевых
+координатахх. Он показал, что в глубокой воде положение частиц на свободной поверхности задается следующими параметрическими уравнениями
+\begin{equation}
+    \begin{cases}
+        \label{eq:surface2dcwm}
+        z(\vec r,t) = \sum\limits_{n=1}^{N} \sum\limits_{m=1}^{M}
+        A_n(\kappa_n) \cdot
+        F_m(\kappa_n,\phi_m) \cos \qty(\omega_n t + \vec \kappa \vec r_0 +
+        \psi_{nm}),    \\
+        x = x_0 - \sum\limits_{n=1}^{N} \sum\limits_{m=1}^{M}
+        A_n(\kappa_n) \cdot
+        F_m(\kappa_n,\phi_m) \cos\phi_m \sin\qty(\omega_n t + \vec \kappa \vec r_0 +
+        \psi_{nm}),\\
+        y = y_{0} - \sum\limits_{n=1}^{N} \sum\limits_{m=1}^{M}
+        A_n(\kappa_n) \cdot
+        F_m(\kappa_n,\phi_m) \sin \phi_m \sin \qty(\omega_n t + \vec \kappa \vec
+        r_0 + \psi_{nm}),
+    \end{cases}
+\end{equation}
+где $\vec \kappa$ -- двумерный волновой вектор,  
+$\vec r_0 = (x_0, y_0)$, $\vec r = (x, y)$
+
+
+\paragraph{Статистические моменты}
+\label{par:statisticheskie_momenty}
+В трехмерном случае вычисления аналогичны двумерному случаю, но более
+громоздкие.  
+
+Введем смешанный $\sigma_{\alpha \beta \gamma}^2$ и начальный $\sigma_n^2$ моменты спектра волнения
+\begin{equation}
+    \sigma^2_{\alpha \beta \gamma} \int\limits_{} \frac{k_x^\alpha
+    k_y^\beta}{k^{\gamma}} S(\vec k) \dd \vec k,\quad
+    \sigma_n^2 = \int\limits_{}^{} k^n S(\vec k) \dd \vec k 
+\end{equation}
+можно получить следующую характеристическую функцию для трехмерного волнения
+\begin{equation}
+    \Phi(\theta) = (1 - i \theta \sigma_1^2 + \theta^2 \Sigma_1)
+    \exp(-\frac{1}{2} \theta^2 \sigma_0^2),
+\end{equation}
+где $\Sigma_1 = \sigma^4_{111} - \sigma_{201}^2 \sigma_{021}^2$.
+
+Из этой характеристической функции можно получить необходимые моменты процесса
+\begin{equation}
+    \label{eq:}
+    \mean{z} = - \sigma_1^2, \quad \mean{z^2} = \sigma_0^2 - 2 \Sigma_1
+\end{equation}
+ 
+На рис. \ref{fig:cwm} представлены срезы трехмерной морской поверхности 
+для стандартного подхода и метода заостренной волны. 
+
+На рис. \ref{fig:evolution} представлена эволюция во времени гребня волны для
+двух методов. 
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\linewidth]{fig/cwm}
+    \caption{Срез поля высот морской поверхности для стандартного подхода и
+    модели заостренной поверхности}
+    \label{fig:cwm}
 \end{figure}
- %\subsection{Модифицированный CWM}%
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\linewidth]{fig/evolution}
+    \caption{Эволюция поверхности, построенной стандартным подходом в сравнении
+    с моделью заостренной поверхности}
+    \label{fig:evolution}
+\end{figure}
+
+
+
+На практике средний уровень морской поверхности не совпадает с тем, что может
+определить альтиметр. Этот эффект возникает из-за того, что площадь впадин на
+поверхности превышает площадь гребней, а значит во впадинах будет больше
+отражающих зеркальных точек. 
+
+Это приводит к увеличению длительности переднего фронта импульса, излучаемого
+радиолокатором. Об этом речь пойдет позднее. 
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+%Рассчитаем спектр  поверхности, построенной по CWM.
+
+ %Спектр поверхности в новых координатах 
+ %\begin{equation}
+     %\label{eq:S_cwm}
+     %\widehat S(k) = \int\limits_{-\infty}^{\infty} z(x) \cdot  
+     %e^{-ikx} \qty[ 1 + D'(x)]
+     %\dd{x}  = S(k) + \int\limits_{-\infty}^{\infty} z(x) \cdot D'(x)  
+     %e^{-ikx}\dd{x},
+ %\end{equation}
+
+ %где $S(k)$-- исходный спектр (например, JONSWAP).
+
+ %Пусть спектр $S(k)$ состоит из всего одной гармоники. Тогда, мы можем его
+ %записать в виде
+ %\begin{equation}
+     %S(k) = \pi A_{0}( \delta(k-k_{0}) + \delta(k+k_{0}))
+ %\end{equation}
+
+ %Для такого спектра функция горизонтального смещения и её производная равны:
+ %\begin{equation}
+     %D(x) = -A_{0} \sin(k_{0} x), \quad
+     %D'(x) = -A_{0} k_{0} \cos(k_{0} x)
+ %\end{equation}
+
+ %Запишем прямое преобразование Фурье для функции $D'(x)$:
+ %\newcommand{\D}{\mathfrak{D}}
+  %\begin{equation}
+     %\D(k) = \int\limits_{-\infty}^{\infty} D'(x) e^{-ikx} \dd x =
+     %- \pi A_{0}k_{0}\qty[\delta(k-k_{0})+\delta(k+k_{0})]
+ %\end{equation}
+
+ %Перепишем \eqref{eq:S_cwm}, применяя теорему о свертке:
+%\begin{equation}
+    %\widehat S(k) = S(k) +
+    %\frac{1}{2\pi} \int\limits_{-\infty}^{\infty} S(k-\xi) \D(\xi) \dd \xi 
+%\end{equation}
+%\begin{gather}
+    %\widehat S(k) = S(k) + \frac{A_{0}}{2} \qty[\D(k-k_{0}) + \D(k+k_{0})] = \\
+    %S(k) - \frac{\pi A_{0}^2}{2} k_{0} \qty[
+    %\delta(k-2k_{0}) +
+    %\delta(k+2k_{0}) +
+    %\delta(k) +
+    %\delta(k) 
+    %] = \\
+    %\pi A_{0}[\delta(k+k_{0})+ \delta(k-k_{0})] -
+    %\frac{\pi A_{0}^2k_{0}}{2}\qty[ \delta(k+2k_{0}) + 2\delta(k) +
+    %\delta(k-2k_{0})]
+%\end{gather}
+%Итак, для частного случае, когда моделируемая поверхность представляет всего
+%одну гармонику $z(x) = A_{0}\cos(k_{0}x)$
+%Мы получили модифицированный спектр:
+%\begin{equation}
+    %\widehat S = 
+    %\pi A_{0}[\delta(k+k_{0})+ \delta(k-k_{0})] -
+    %\frac{\pi A_{0}^2k_{0}}{2}\qty[ \delta(k+2k_{0}) + 2\delta(k) +
+    %\delta(k-2k_{0})]
+%\end{equation}
+
+%Очевидно, что если поверхность будет представляться суммой гармоник
+%$z(x) = \sum\limits_{n=0}^{N} A_n \cos{k_n x}$,
+%спектр примет вид
+%\begin{equation}
+    %\widehat S = 
+    %\underbrace{
+    %\sum\limits_{n=0}^{N} \pi A_n \qty[\delta(k+k_n) + \delta(k-k_n) ]
+%}_{S(k)}
+%\underbrace{
+%- \sum\limits_{n=0}^{N} \frac{\pi A_{n}^2 k_n}{2}
+%\qty[ \delta(k+2k_{n}) 
+    %+ 2\delta(k) 
+%+ \delta(k-2k_{n})]
+%}_{S_{CWM}(k)}
+%\end{equation}
+
+%Добавка к исходному спектру выглядит следующим образом
+%\begin{gather}
+    %\boxed{
+    %S_{CWM}(k) = - \sum\limits_{n=0}^{N} \pi A_{n}^2 k_n \delta(k) - 
+    %\sum\limits_{n=0}^{N} \frac{\pi A_n^2 k_n}{2} \qty[\delta(k+2k_n) +
+    %\delta(k-2k_n)]
+%}
+%\end{gather}
+
+%\begin{figure}[ht]
+    %\begin{minipage}{0.49\linewidth}
+        %\centering
+        %\includegraphics[width=\linewidth]{fig/cwm_surface.pdf}
+
+        %(a)
+        %\caption{Заостренная синусоида (CWM) в сравнении обычной}
+        %\label{fig:1}
+    %\end{minipage}
+    %\hfill
+    %\begin{minipage}{0.49\linewidth}
+        %\centering
+        %\includegraphics[width=\linewidth]{fig/cwm_spectrum.pdf}
+
+        %(b)
+        %\caption{Спектр заостренной синусоиды}
+        %\label{fig:2}
+    %\end{minipage}
+%\end{figure}
+ %%\subsection{Модифицированный CWM}%
  
  %Для того, чтобы получить ассиметричную, заостренную поверхности введем другую
  %функцию горизонтального смещения
