@@ -6,7 +6,7 @@ import os
 
 from numpy import pi
 from numpy import random
-sys.path.insert(0, '../scripts')
+sys.path.insert(0, '..\scripts')
 from pulse import Pulse
 from surface import Surface
 
@@ -15,7 +15,7 @@ N = 1024
 M = 128
 t = 0
 
-surface = Surface(1,0,1,1, N=N, M=M, conf_file='surfaces/surf_ku.ini')
+surface = Surface(1,0,1,1, N=N, M=M, )
 
 
 
@@ -34,16 +34,18 @@ P = np.zeros(T.size)
 
 mirrors = 0
 
-while mirrors<10:
-    x = random.uniform(-Xmax, Xmax, size=(100))
-    y = random.uniform(-Xmax, Xmax, size=(100))
+while mirrors<10000:
+    x = random.uniform(-Xmax, Xmax, size=(256))
+    y = random.uniform(-Xmax, Xmax, size=(256))
     z = surface.heights([x,y],t)
+    print(z, type(z), z.shape)
     zxx = surface.slopesxx([x,y],t)
     zyy = surface.slopesyy([x,y],t)
 
     r = np.array([x.flatten(),y.flatten(),z.flatten()])
     r0 = np.array([np.zeros(x.size),np.zeros(x.size),-z0*np.ones(x.size)])
     n = np.array([zxx.flatten(),zyy.flatten(),np.ones(zxx.size)])
+    print(r.shape, r0.shape, n.shape)
 
     R = r - r0
     theta = pulse.theta_calc(r,r0)
@@ -63,7 +65,7 @@ while mirrors<10:
         plt.clf()
         plt.plot(T,P)
         plt.show()
-        plt.pause(20)
+        plt.pause(1)
 
 plt.savefig('example-impulse.png')
 data = pd.DataFrame({'P': P, 'T': T})

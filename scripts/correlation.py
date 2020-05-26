@@ -1,10 +1,8 @@
 import matplotlib.pyplot as plt
-from numpy.linalg import norm
 import numpy as np
 from numpy import pi
-from scipy import interpolate,integrate
-from tqdm import tqdm
-import water
+from surface import Surface
+from data import Data
 
 
 
@@ -50,11 +48,12 @@ def height_sum(k,rho):
 
 M=1; N=256;
 rho = np.linspace(0,200,1000)
-surface = water.Surface(N=N, M=M,  KT=[0.05,2000], space='log', whitening='hs')
+data = 
+surface = water.Surface(N=N, M=M,  space='lin', )
 k = surface.k
 H = height_sum(k,rho)
 S = angles_sum(k,rho)
-surface = water.Surface(N=N, M=M,  KT=[0.05,2000], space='log')
+surface = water.Surface(N=N, M=M,  space='log')
 k = surface.k
 H1 = height_sum(k,rho)
 S1 = angles_sum(k,rho)
@@ -67,7 +66,7 @@ plt.plot(rho,H, color='red',label='b')
 plt.xlabel('$\\rho,~\\text{м}$')
 plt.ylabel('$K$')
 plt.legend()
-plt.savefig('white1.png',dpi=300)
+# plt.savefig('white1.png',dpi=300)
 plt.figure()
 plt.plot(rho,S1,color='blue',label='a')
 plt.plot(rho,S, color='red',label='b')
@@ -75,6 +74,6 @@ plt.plot(rho,angles(klog,rho),color='black',label='Теория')
 plt.xlabel('$\\rho,~\\text{м}$')
 plt.ylabel('$K$')
 plt.legend()
-plt.savefig('white2.png',dpi=300)
+# plt.savefig('white2.png',dpi=300)
 plt.show()
 

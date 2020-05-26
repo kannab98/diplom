@@ -1,7 +1,15 @@
+from numpy import *
+from matplotlib.pyplot import *
+xmin = 0.1
+xmax = 100
+N = 1000
+a = logspace(log10(xmin), log10(xmax),N)
+b = zeros(a.size)
+b[0] = a[0]
 
-import matplotlib.pyplot as plt
-from numpy.random import uniform
-x = uniform(-5000, 5000, size=(10,10))
-y = uniform(-5000, 5000, size=(10,10))
-plt.scatter(x,y)
-plt.show()
+for i in range(1, b.size):
+    b[i] = b[i-1]*xmax/(N-1)
+
+loglog(a,a)
+loglog(b,b)
+show()
