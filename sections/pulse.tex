@@ -1,9 +1,9 @@
 %!TEX root = ../diplom.tex
 
-\section{Моделирование процесса измерения}
+\section{Моделирование отраженного импульса}
+\label{sec:pulse_modeling}
 
-Важным преимуществом орбитального радиовысотомера по сравнению с другими
-радиолокаторами является то, что теоретические модели рассеяния хорошо
+Важным преимуществом орбитального радиовысотомера по сравнению с другими радиолокаторами является то, что теоретические модели рассеяния хорошо
 описывают свойства радиолокационного сигнала, отраженного морской поверхностью.
 В результате алгоритмы обработки получены не с помощью регрессионного анализа,
 а основаны на аналитических формулах для формы отраженного импульса.
@@ -59,38 +59,38 @@
 \begin{figure}[h]
     \centering
     \includegraphics[]{fig/flat_wave1.pdf}
-    \caption{}
-    \label{fig:}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \hfill
-    \begin{subfigure}{0.25\linewidth}
-        \centering
-        \includesvg{wave_front2}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.25\linewidth}
-        \centering
-        \includesvg{wave_front3}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.25\linewidth}
-        \centering
-        \includesvg{wave_front4}
-    \end{subfigure}
+    \caption{Процесс формирования отраженного импульса в зависимости от времени}
     \label{fig:wave_form}
-    \caption{Геометрическая интерпретация формы отраженного импульса}
 \end{figure}
 
-Для нахождения отраженного имульса необходимо выполнить интегрирование по
-рассеивающей площадке для сферической волны с учетом длительности зондирующегоо
+%\begin{figure}[h]
+    %\centering
+    %\hfill
+    %\begin{subfigure}{0.25\linewidth}
+        %\centering
+        %\includesvg{wave_front2}
+    %\end{subfigure}
+    %\hfill
+    %\begin{subfigure}{0.25\linewidth}
+        %\centering
+        %\includesvg{wave_front3}
+    %\end{subfigure}
+    %\hfill
+    %\begin{subfigure}{0.25\linewidth}
+        %\centering
+        %\includesvg{wave_front4}
+    %\end{subfigure}
+    %\label{fig:wave_form}
+    %\caption{Геометрическая интерпретация формы отраженного импульса}
+%\end{figure}
+
+Для нахождения отраженного импульса необходимо выполнить интегрирование по
+рассеивающей площадке для сферической волны с учетом длительности зондирующего
 импульса.
 
 
-%\subsection{Влияние морского волнения на форму отраженного импульса}%
-%\label{sub:vliianie_morskogo_volneniia_na_vormu_otrazhennogo_impul_sa}
+\subsection{Влияние морского волнения на форму отраженного импульса}%
+\label{sub:vliianie_morskogo_volneniia_na_vormu_otrazhennogo_impul_sa}
 
 Если говорить о морской поверхности, то перед интегрированием по рассеивающей
 площадке необходимо выяснить какие участки поверхности будут вносить свой вклад
@@ -107,7 +107,7 @@
 Зная координаты радиолокатора  $(x_0,y_0,z_0)$, координаты точки на
 поверхности $(x,y,z)$ и наклоны в этой точке $(\zeta_x,\sigma_y,1)$, можем из
 геометрии (см. рис. \ref{fig:local_theta}) получить локальный угол падения
-излучения $\theta_0$:
+волны на морскую поверхность $\theta_0$:
 \begin{equation}
     \label{eq:local_theta}
     \cos \theta =  \frac{\vec R \vec n}{|\vec R| |\vec n|}, \text{ где}
@@ -162,35 +162,34 @@ $(x,y,\zeta)$}
     \label{fig:local_theta}
 \end{figure}
 
-\begin{figure}[h!]
-    \centering
-    \begin{subfigure}{0.65\linewidth}
-        \centering
-        \includegraphics[width=\linewidth]{fig/impulse/fig1}
-        \caption{Моделирование поверхности при скорости ветра $U=5$ м/с}
-        \label{fig:mirror:a}
-    \end{subfigure}
-    \begin{subfigure}{.49\linewidth}
-        \centering
-        \includegraphics[width=\linewidth]{fig/impulse/fig2}
-        \caption{Локальный угол отражения от поверхности для радиолокатора
-        находящегося на высоте $H=1000$ км в точке с координатой (100, 100)}
-        \label{fig:mirror:b}
-    \end{subfigure}
-    \begin{subfigure}{.49\linewidth}
-        \centering
-        \includegraphics[width=\linewidth]{fig/impulse/fig3}
-        \caption{Положение зеркальных точек поверхности \ref{fig:mirror:a} для
-        радиолокатора находящегося над точкой (100,100) }
-        \label{fig:mirror:c}
-    \end{subfigure}
-    \label{fig:mirror}
-    \caption{}
-\end{figure}
+%\begin{figure}[h!]
+    %\centering
+    %\begin{subfigure}{0.65\linewidth}
+        %\centering
+        %\includegraphics[width=\linewidth]{fig/impulse/fig1}
+        %\caption{Моделирование поверхности при скорости ветра $U=5$ м/с}
+        %\label{fig:mirror:a}
+    %\end{subfigure}
+    %\begin{subfigure}{.49\linewidth}
+        %\centering
+        %\includegraphics[width=\linewidth]{fig/impulse/fig2}
+        %\caption{Локальный угол отражения от поверхности для радиолокатора
+        %находящегося на высоте $H=1000$ км в точке с координатой (100, 100)}
+        %\label{fig:mirror:b}
+    %\end{subfigure}
+    %\begin{subfigure}{.49\linewidth}
+        %\centering
+        %\includegraphics[width=\linewidth]{fig/impulse/fig3}
+        %\caption{Положение зеркальных точек поверхности \ref{fig:mirror:a} для
+        %радиолокатора находящегося над точкой (100,100) }
+        %\label{fig:mirror:c}
+    %\end{subfigure}
+    %\label{fig:mirror}
+    %\caption{}
+%\end{figure}
 
 Теперь, для вычисления поля вблизи приемной антенны радиолокатора нам
-необходимо просуммировать отраженное от квазизеркальных точек поле
-(см.рис. \ref{fig:mirror:c}).  
+необходимо просуммировать отраженное от квазизеркальных точек поле.
 
 
 %Как было сказано с предыдущих разделах, волна излученная антенной
@@ -204,18 +203,34 @@ R$
     E_{s}(\vec R,t) = \frac{E_0}{R}  \cdot  e^{i(\omega t - \vec k \vec
     R)} U(t)G(\theta), 
 \end{equation}
-где $U(t)$ -- некотораря функция, ограничивающая длительность импульса,
+где $U(t)$ -- некоторая функция, ограничивающая длительность импульса,
 $G(\theta)$ -- диаграмма направленности антенны.
 
+
+
 Тогда вблизи приемной антенны амплитуду поля $E$ можно записать как
+\begin{equation}
+    \label{eq:}
+    E =  \frac{E_0}{R^2} \exp{-2ikR} \sigma^o \Delta S, \text{ где}
+\end{equation}
+$\sigma^o$ -- удельное сечение обратного рассеяния площадки с площадью  $\Delta
+S$.
+
+Поскольку мы рассматриваем не все зеркальные точки на поверхности, а лишь их
+выборку, то модельное сечение обратного рассеяния всегда будет значительно
+меньше экспериментального. Поэтому учитывать множитель $\sigma^o \Delta S$ мы
+не будем и перейдем к пропорциональности
 \begin{equation}
     \label{eq:E}
     E \sim \frac{E_{sur}}{R_1} e^{-i\vec k \vec R} \cdot G(\theta) =
     \frac{E_0}{R^2} e^{-2i\vec k \vec R} \cdot G^2(\theta), 
 \end{equation}
 
+
 Остается только проинтегрировать уравнение \eqref{eq:E} по всем отражающим
 точкам 
+
+
 
 \begin{equation}
     \label{eq:}
@@ -225,144 +240,52 @@ $G(\theta)$ -- диаграмма направленности антенны.
 где $M$ -- количество точек,  $x_i,y_i$ -- координаты  $i-$ой отражающей точки,
  $R_i$-- расстояние от спутника до  $i-$ой точки.
 
- \textbf{\color{red} {\large Вопрос. Как должно выглядеть <<честное>> выражение
- для амплитуды поля? Верно понимаю, что там нужно ещё только дописать УЭПР
- площадки и умножить на площадь площадки? То есть}
-\begin{equation}
-    \label{eq:}
-    E =  \sum\limits_{i=1}^{M} \frac{E_0}{R_i^2} \exp{-2ikR_i} \sigma^o_i
-    \Delta S_i
-\end{equation}
- как правильнее в дальнейшем учесть вес каждой точки? Или здесь мы снова
- опираемся на статистические свойства формы импульса и считаем, что площадки
- имеют одинаковый вес? В отчете выдвигало предположение, что они имеют
- одинаковый вес, но потом нигде не рассматривался случай невыполения этого
- предположения}%
+ После этого необходимо сделать поправку по амплитуде, учитывающую множитель
+ $\sigma^o \Delta S$:
+ \begin{equation}
+     \label{eq:frenel}
+     \sigma^o = \frac{\abs{F(0)}^2}{2\cos^4\theta \sqrt{\sigma^2_{yy}\sigma^2_{xx}}}
+     \cdot \exp{-\frac{-\tan^2 \theta}{2 \sigma^2_{xx}}},
+ \end{equation}
+ где $\sigma_{xx}^2$, $\sigma_{yy}^2$ -- дисперсии наклонов вдоль оси $x$ и $y$
+ соответственно, $F(0)$ -- коэффициент Френеля,  $\theta$ -- угол падения. 
 
  Результирующая мощность импульса будет равна
  \begin{equation}
      \label{eq:}
      P(t) = \frac{EE^*}{2}
  \end{equation}
-Процесс создания такой выборки зеркальных точек продемонстрирован на рис.
-\ref{fig:mirror:a}-\ref{fig:mirror:c}. 
-Реализация процесса создания выборки и интегрирования по рассеивающим
-площадкам, входящим в неё представлена в листинге \ref{lst:pulse}.
-На рис. \ref{fig:model_pulse} представлен импульс, посчитанный суммированием по отражающим точкам.
-
  \begin{figure}[h]
-     \begin{subfigure}{.59\linewidth}
+     \begin{subfigure}{.55\linewidth}
          \centering
-         \includegraphics[width=\linewidth]{fig/model_mirrors1}
+         \includegraphics[width=\linewidth]{fig/theta0}
          \caption{}
      \end{subfigure}
+     \hfill
      \begin{subfigure}{.39\linewidth}
          \centering
-         \includegraphics[width=\linewidth]{fig/model_impuls1}
+         \includegraphics[width=\linewidth]{fig/theta.pdf}
          \caption{}
      \end{subfigure}
      \caption{(a) Вычисление локального угла падения (см.\eqref{eq:local_theta} )для радиолокаторе,
-     находящегося в точке $(0,0,h)$. Красным цветом обозначены точки, которые в
- дальнейшем будут считаться зеркальными и которые будут участвовать в
+     находящегося в точке $(0,0,h)$.  Точки, градусная мера которых меньше
+     $\theta<1^\circ$ в 
+ дальнейшем будут считаться зеркальными и они будут участвовать в
  формировании отраженного импульса.
- (b) Мощность отраженного импульса в зависимости от времени.}
+ (b) Форма отраженного импульса в зависимости от времени.}
     \label{fig:model_impuls}
  \end{figure}
 
 
-
-
-
- \textbf{\color{red} \large Вопрос. Как получить форму импульса, соответствующую
- формуле Брауна?}%
- { \color{red}
- На самом деле график на рис. \ref{fig:model_impuls}b похож на формулу Брауна,
- но очень сильно зашумленную (просматривается передний фронт, задний тоже можно
- найти, если иметь хорошее воображение). 
- Насколько я понимаю, для этого мне необходимо производить измерения с помощью
- не единичного импульса, а их серии (я всё же начинал обрабатывать данные
- присланные Ростовом и видел, что на реальные радиолокаторы производят порядка
- сотни импульсов). Должен ли я теперь моделировать несколько импульсов, но с
- учетом эволюции морской поверхности? Сделал бы это сразу, но такой численный
- эксперимент требует больших вычислительных затрат, из-за необходимости
- моделирования сразу нескольких морских поверхностей, поэтому решил спросить у
- вас и перестраховаться.}
-
- {\color{red} Ниже представлены на рис. \ref{fig:flat_surf} графики моделирования получения импульса, отраженного от
-плоской поверхности. Насколько я понимаю, шумы в такой простой задаче вызваны
-когерентным суммированием гармоник на приемной антенне. А спадание импульса
-вызвано особенностями моделирования: при распространении сферической волны в
-плоскости $xy$ она выходит за границы рассматриваемой координатной сетки, тем
-самым уменьшая количество зеркальных точек, а значит и уменьшая мощность в
-результате. В этом можно убедиться, если увеличить координатную сетку.
-Например, на рис. \ref{fig:flat_surf1} я увеличил немного координатную сетку и
-задний фронт действительно дольше не спадал. Получается, чтобы избежать таких
-ошибок, необходимо связывать размер кооординатной сетки, на которой ищутся
-зеркальные точки с длительность времени, за которое мы можем моделировать
-импульс.}
+ На рис. \ref{fig:model_impuls} изображен модельный импульс, полученный
+ суммированием отраженной мощности от выборки зеркальных точек на модельной
+ поверхности. Теперь необходимо проверить как соотносится этот модельный
+ импульс с теоретическим импульсом, а также с импульсами, полученными реальными
+ спутниками. 
 
 
 
 
- \begin{figure}[H]
-     \begin{subfigure}{.59\linewidth}
-         \centering
-         \includegraphics[width=\linewidth]{fig/model_mirrors2}
-         \caption{}
-     \end{subfigure}
-     \begin{subfigure}{.39\linewidth}
-         \centering
-         \includegraphics[width=\linewidth]{fig/model_impuls2}
-         \caption{}
-     \end{subfigure}
-     \caption{(a) Вычисление локального угла падения (см.\eqref{eq:local_theta} )для радиолокаторе,
-     находящегося в точке $(0,0,h)$. Красным цветом обозначены точки, которые в
- дальнейшем будут считаться зеркальными и которые будут участвовать в
- формировании отраженного импульса.
- (b) Мощность отраженного импульса в зависимости от времени.}
- \label{fig:flat_surf}
- \end{figure}
-
- \begin{figure}[h]
-     \begin{subfigure}{.59\linewidth}
-         \centering
-         \includegraphics[width=\linewidth]{fig/model_mirrors4}
-         \caption{}
-     \end{subfigure}
-     \begin{subfigure}{.39\linewidth}
-         \centering
-         \includegraphics[width=\linewidth]{fig/model_impuls4}
-         \caption{}
-     \end{subfigure}
-     \caption{(a) Вычисление локального угла падения (см.\eqref{eq:local_theta} )для радиолокаторе,
-     находящегося в точке $(0,0,h)$. Красным цветом обозначены точки, которые в
- дальнейшем будут считаться зеркальными и которые будут участвовать в
- формировании отраженного импульса.
- (b) Мощность отраженного импульса в зависимости от времени.}
-     \label{fig:flat_surf1}
- \end{figure}
- \begin{figure}[H]
-     \begin{subfigure}{.59\linewidth}
-         \centering
-         \includegraphics[width=\linewidth]{fig/model_mirrors3}
-         \caption{}
-     \end{subfigure}
-     \begin{subfigure}{.39\linewidth}
-         \centering
-         \includegraphics[width=\linewidth]{fig/model_impuls3}
-         \caption{}
-     \end{subfigure}
-     \caption{(a) Вычисление локального угла падения (см.\eqref{eq:local_theta} )для радиолокаторе,
-     находящегося в точке $(0,0,h)$. Красным цветом обозначены точки, которые в
- дальнейшем будут считаться зеркальными и которые будут участвовать в
- формировании отраженного импульса.
- (b) Мощность отраженного импульса в зависимости от времени.}
-    \label{fig:}
- \end{figure}
-
-
-%\appendix
-%\newpage
 %\section{Моделирование отраженного импульса}%
 %\label{app:sec:pulse}
 %Весь проект был написан на Python 3.8 с целью облегчить чтение исходного кода.
