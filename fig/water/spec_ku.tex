@@ -1,0 +1,33 @@
+\documentclass[tikz,10pt,convert]{standalone}
+
+
+\usepackage[utf8x]{inputenc}
+\usepackage[russian]{babel}
+
+\usepackage{amsmath,amssymb,cmap,pgfplots,pgfplotstable}
+\usetikzlibrary{arrows,calc,intersections}
+\pgfplotsset{compat=newest}
+\tikzset{}
+
+
+\begin{document}
+\begin{tikzpicture}
+    \pgfplotstableread{../data/spectrum_Ku.csv}\data;
+    \begin{axis}[
+        xmode=log, 
+        ymode=log, 
+        ylabel={$S(\kappa), \text{ Вт}\cdot\text{с}$}, 
+        xlabel={$\kappa,\text{ рад}\cdot\text{м}^{-1}$}
+        ]
+        \addplot +[thin, mark=none] table [col sep=semicolon, x=k5,
+        y=S5]{../data/spectrum_Ku.csv};
+        \addlegendentry{$U_{10}=5 \text{ м/с}$}
+        \addplot +[thin, mark=none] table [col sep=semicolon, x=k10,
+        y=S10]{../data/spectrum_Ku.csv};
+        \addlegendentry{$U_{10}=10 \text{ м/с}$}
+        \addplot +[thin, mark=none] table [col sep=semicolon, x=k10,
+        y=S15]{../data/spectrum_Ku.csv};
+        \addlegendentry{$U_{10}=15 \text{ м/с}$}
+	\end{axis}
+\end{tikzpicture}	
+\end{document}

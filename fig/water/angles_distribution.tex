@@ -1,0 +1,53 @@
+\documentclass[tikz,10pt]{standalone}
+
+
+\usepackage[utf8x]{inputenc}
+\usepackage[russian]{babel}
+
+\usepackage{amsmath,amssymb,cmap,pgfplots,pgfplotstable}
+\usetikzlibrary{arrows,calc,intersections}
+\pgfplotsset{compat=newest}
+\usepgfplotslibrary{polar}
+    
+\pgfplotsset{
+  every axis plot/.append style={line width=1pt},
+}
+
+\def\data{../data/angles_distrib.csv}
+\def\ylabel{$F(\kappa,\phi), \text{ a.u.}$}
+\def\xlabel{$k,\text{ град}$}
+
+\begin{document}
+
+\begin{tikzpicture}
+    \begin{polaraxis}[xlabel=\xlabel,ylabel=\ylabel]
+        \addplot +[mark=none] table [col sep=semicolon, x
+            expr=\thisrow{phi}/pi*180,
+        y=F2km]{\data};
+        \addplot +[mark=none] table [col sep=semicolon, x
+            expr=\thisrow{phi}/pi*180,
+        y=Fkm]{\data};
+        \addplot +[mark=none] table [col sep=semicolon, x
+            expr=\thisrow{phi}/pi*180,
+        y=Fkm/2]{\data};
+    \legend{$k/k_m = 2$, $k/k_m = 1$,$k/k_m = 0.5$}
+	\end{polaraxis}
+\end{tikzpicture}	
+
+\begin{tikzpicture}
+    \begin{polaraxis}[xlabel=\xlabel,ylabel=\ylabel]
+        \addplot +[mark=none] table [
+            col sep=semicolon, x
+            expr=\thisrow{phi}/pi*180,
+        y=F10km]{\data};
+        \addplot +[mark=none] table [col sep=semicolon, x
+            expr=\thisrow{phi}/pi*180,
+        y=F50km]{\data};
+        \addplot +[mark=none] table [col sep=semicolon, x
+            expr=\thisrow{phi}/pi*180,
+        y=F100km]{\data};
+    \legend{$k/k_m = 2$, $k/k_m = 1$,$k/k_m = 0.5$}
+	\end{polaraxis}
+\end{tikzpicture}	
+
+\end{document}

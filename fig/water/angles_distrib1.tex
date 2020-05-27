@@ -1,0 +1,40 @@
+%!TEX option = --shell-escape
+\documentclass[tikz,10pt, convert]{standalone}
+
+
+\usepackage[utf8x]{inputenc}
+\usepackage[russian]{babel}
+
+\usepackage{amsmath,amssymb,cmap,pgfplots,pgfplotstable}
+\usetikzlibrary{arrows,calc,intersections}
+\pgfplotsset{compat=newest}
+\usepgfplotslibrary{polar}
+    
+\def
+\pgfplotsset{
+  every axis plot/.append style={line width=1pt},
+  every axis plot post/.append style={
+    every mark/.append style={line width=1.6pt,draw=green,fill=red}
+  }
+}
+
+\begin{document}
+\begin{tikzpicture}
+    \pgfplotstableread{../data/angles_distrib.csv}{\data};
+    \begin{polaraxis}[
+        ylabel={$F(\kappa,\phi), \text{ a.u.}$}, 
+        xlabel={$k,\text{ град}$},
+        ]
+        \addplot +[mark=none] table [col sep=semicolon, x
+            expr=\thisrow{phi}/pi*180,
+        y=F2km]{../data/angles_distrib.csv};
+        \addplot +[mark=none] table [col sep=semicolon, x
+            expr=\thisrow{phi}/pi*180,
+        y=Fkm]{../data/angles_distrib.csv};
+        \addplot +[mark=none] table [col sep=semicolon, x
+            expr=\thisrow{phi}/pi*180,
+        y=Fkm/2]{../data/angles_distrib.csv};
+    \legend{$k/k_m = 2$, $k/k_m = 1$,$k/k_m = 0.5$}
+	\end{polaraxis}
+\end{tikzpicture}	
+\end{document}

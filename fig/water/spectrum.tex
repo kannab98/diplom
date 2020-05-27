@@ -1,0 +1,52 @@
+\documentclass[tikz,10pt]{standalone}
+
+
+\usepackage[utf8x]{inputenc}
+\usepackage[russian]{babel}
+
+\usepackage{amsmath,amssymb,cmap,pgfplots,pgfplotstable}
+\usetikzlibrary{arrows,calc,intersections}
+\pgfplotsset{compat=newest}
+\def\dataku{../data/spectrum_Ku.csv}
+\def\datac{../data/spectrum_Ku.csv}
+
+
+\begin{document}
+\begin{tikzpicture}
+    \begin{axis}[
+        xmode=log, 
+        ymode=log, 
+        ylabel={$S(\kappa), \text{ Вт}\cdot\text{с}$}, 
+        xlabel={$\kappa,\text{ рад}\cdot\text{м}^{-1}$}
+        ]
+        \addplot +[thin, mark=none] table [col sep=semicolon, x=k5,
+        y=S5]{\dataku};
+        \addlegendentry{$U_{10}=5 \text{ м/с}$}
+        \addplot +[thin, mark=none] table [col sep=semicolon, x=k10,
+        y=S10]{\dataku};
+        \addlegendentry{$U_{10}=10 \text{ м/с}$}
+        \addplot +[thin, mark=none] table [col sep=semicolon, x=k10,
+        y=S15]{\dataku};
+        \addlegendentry{$U_{10}=15 \text{ м/с}$}
+	\end{axis}
+\end{tikzpicture}	
+
+\begin{tikzpicture}
+    \begin{axis}[
+        xmode=log, 
+        ymode=log, 
+        ylabel={$S(\kappa), \text{ Вт}\cdot\text{с}$}, 
+        xlabel={$\kappa,\text{ рад}\cdot\text{м}^{-1}$}
+        ]
+        \addplot +[thin, mark=none] table [col sep=semicolon, x=k5,
+        y=S5]{\datac};
+        \addlegendentry{$U_{10}=5 \text{ м/с}$}
+        \addplot +[thin, mark=none] table [col sep=semicolon, x=k10,
+        y=S10]{\datac};
+        \addlegendentry{$U_{10}=10 \text{ м/с}$}
+        \addplot +[thin, mark=none] table [col sep=semicolon, x=k10,
+        y=S15]{\datac};
+        \addlegendentry{$U_{10}=15 \text{ м/с}$}
+	\end{axis}
+\end{tikzpicture}	
+\end{document}

@@ -1,0 +1,24 @@
+\documentclass[tikz,10pt]{standalone}
+
+
+\usepackage[utf8x]{inputenc}
+\usepackage[russian]{babel}
+
+\usepackage{amsmath,amssymb,cmap,pgfplots,pgfplotstable}
+\usetikzlibrary{arrows,calc,intersections}
+\pgfplotsset{compat=newest}
+\def\data{../data/gpucalc.tsv}
+
+
+\begin{document}
+\begin{tikzpicture}
+    \begin{axis}[
+        ylabel={$t_{GPU}/t_{CPU}$, эффективность}, 
+        xlabel={$X\times Y, \text{ размер сетки}$}
+        ]
+        \addplot +[thin, mark=none] table [x expr=\thisrow{count}^2,
+        y expr=\thisrow{cpu}/\thisrow{gpu}]{\data};
+	\end{axis}
+\end{tikzpicture}	
+
+\end{document}

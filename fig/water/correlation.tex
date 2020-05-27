@@ -1,0 +1,162 @@
+\documentclass[tikz,10pt]{standalone}
+
+
+\usepackage[utf8x]{inputenc}
+\usepackage[russian]{babel}
+
+\usepackage{amsmath,amssymb,cmap,pgfplots,pgfplotstable}
+\usetikzlibrary{arrows,calc,intersections}
+\pgfplotsset{compat=newest}
+
+\def\data{../data/korr_h_lin.csv}
+\def\datalog{../data/korr_h_log.csv}
+\def\dataquad{../data/korr_h_quad.csv}
+\def\xlabel{$K(\rho), a.u.$}
+\def\ylabel{$\rho, \text{ м}$}
+
+
+\begin{document}
+\begin{tikzpicture}
+    \begin{axis}[
+        ylabel=\ylabel,
+        xlabel=\xlabel
+        ]
+        \addplot +[thin, mark=none] table [col sep=semicolon, x=rho0,
+        y=K0_h5]{\data};
+        \addplot +[thin, mark=none] table [col sep=semicolon, x=rho0,
+        y=K_h5]{\data};
+	\end{axis}
+\end{tikzpicture}	
+
+\begin{tikzpicture}
+    \begin{axis}[
+        ylabel=\ylabel,
+        xlabel=\xlabel
+        ]
+        \addplot +[thin, mark=none] table [col sep=semicolon, x=rho1,
+        y=K0_h7]{\data};
+        \addplot +[thin, mark=none] table [col sep=semicolon, x=rho1,
+        y=K_h7]{\data};
+	\end{axis}
+\end{tikzpicture}	
+
+\begin{tikzpicture}
+    \begin{axis}[
+        ylabel=\ylabel,
+        xlabel=\xlabel
+        ]
+        \addplot +[thin, mark=none] table [col sep=semicolon, x=rho2,
+        y=K0_h10]{\data};
+        \addplot +[thin, mark=none] table [col sep=semicolon, x=rho2,
+        y=K_h10]{\data};
+	\end{axis}
+\end{tikzpicture}	
+
+\begin{tikzpicture}
+    \begin{axis}[
+        ylabel=\ylabel,
+        xlabel=\xlabel
+        ]
+        \addplot +[thin, mark=none] table [col sep=semicolon, x=rho3,
+        y=K0_h15]{\data};
+        \addplot +[thin, mark=none] table [col sep=semicolon, x=rho3,
+        y=K_h15]{\data};
+	\end{axis}
+\end{tikzpicture}	
+
+\begin{tikzpicture}
+    \begin{axis}[
+        ylabel=\ylabel,
+        xlabel=\xlabel
+        ]
+        \addplot +[thin, mark=none] table [col sep=semicolon, x=rho0,
+        y=K0_h5]{\datalog};
+        \addplot +[thin, mark=none] table [col sep=semicolon, x=rho0,
+        y=K_h5]{\datalog};
+	\end{axis}
+\end{tikzpicture}	
+
+\begin{tikzpicture}
+    \begin{axis}[
+        ylabel=\ylabel,
+        xlabel=\xlabel
+        ]
+        \addplot +[thin, mark=none] table [col sep=semicolon, x=rho1,
+        y=K0_h7]{\datalog};
+        \addplot +[thin, mark=none] table [col sep=semicolon, x=rho1,
+        y=K_h7]{\datalog};
+	\end{axis}
+\end{tikzpicture}	
+
+\begin{tikzpicture}
+    \begin{axis}[
+        ylabel=\ylabel,
+        xlabel=\xlabel
+        ]
+        \addplot +[thin, mark=none] table [col sep=semicolon, x=rho2,
+        y=K0_h10]{\datalog};
+        \addplot +[thin, mark=none] table [col sep=semicolon, x=rho2,
+        y=K_h10]{\datalog};
+	\end{axis}
+\end{tikzpicture}	
+
+\begin{tikzpicture}
+    \begin{axis}[
+        ylabel=\ylabel,
+        xlabel=\xlabel
+        ]
+        \addplot +[thin, mark=none] table [col sep=semicolon, x=rho3,
+        y=K0_h15]{\datalog};
+        \addplot +[thin, mark=none] table [col sep=semicolon, x=rho3,
+        y=K_h15]{\datalog};
+	\end{axis}
+\end{tikzpicture}	
+
+\begin{tikzpicture}
+    \begin{axis}[
+        ylabel=\ylabel,
+        xlabel=\xlabel
+        ]
+        \addplot +[thin, mark=none] table [col sep=semicolon, x=rho0,
+        y=K0_h5]{\dataquad};
+        \addplot +[thin, mark=none] table [col sep=semicolon, x=rho0,
+        y=K_h5]{\dataquad};
+	\end{axis}
+\end{tikzpicture}	
+
+\begin{tikzpicture}
+    \begin{axis}[
+        ylabel=\ylabel,
+        xlabel=\xlabel
+        ]
+        \addplot +[thin, mark=none] table [col sep=semicolon, x=rho1,
+        y=K0_h7]{\dataquad};
+        \addplot +[thin, mark=none] table [col sep=semicolon, x=rho1,
+        y=K_h7]{\dataquad};
+	\end{axis}
+\end{tikzpicture}	
+
+\begin{tikzpicture}
+    \begin{axis}[
+        ylabel=\ylabel,
+        xlabel=\xlabel
+        ]
+        \addplot +[thin, mark=none] table [col sep=semicolon, x=rho2,
+        y=K0_h10]{\dataquad};
+        \addplot +[thin, mark=none] table [col sep=semicolon, x=rho2,
+        y=K_h10]{\dataquad};
+	\end{axis}
+\end{tikzpicture}	
+
+\begin{tikzpicture}
+    \begin{axis}[
+        ylabel=\ylabel,
+        xlabel=\xlabel
+        ]
+        \addplot +[thin, mark=none] table [col sep=semicolon, x=rho3,
+        y=K0_h15]{\dataquad};
+        \addplot +[thin, mark=none] table [col sep=semicolon, x=rho3,
+        y=K_h15]{\dataquad};
+	\end{axis}
+\end{tikzpicture}	
+\end{document}

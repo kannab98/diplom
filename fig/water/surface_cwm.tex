@@ -1,0 +1,35 @@
+\documentclass[tikz,10pt]{standalone}
+
+
+\usepackage[utf8x]{inputenc}
+\usepackage[russian]{babel}
+
+\usepackage{amsmath,amssymb,cmap,pgfplots,pgfplotstable}
+\usetikzlibrary{arrows,calc,intersections}
+\pgfplotsset{compat=newest}
+
+
+\def\data{../data/surface_cwm.csv}
+\begin{document}
+\begin{tikzpicture}
+    \begin{axis}[
+        ylabel={$Z$, м}, 
+        xlabel={$X$, м},
+        legend pos=south west,
+        ]
+        \addplot +[thin, mark=none] table [col sep=semicolon, x=x,
+        y=height]{\data};
+        \addplot +[thin, mark=none] table [col sep=semicolon, x=xcwm,
+        y=height]{\data};
+
+        \addplot +[thin, mark=none, color=blue, dashed] table [col sep=semicolon, x=x,
+        y expr=0]{\data};
+        \addlegendentry{обычная}
+        \addplot +[thin, mark=none, color=red, dashed] table [col sep=semicolon, x=xcwm,
+        y expr=-0.1]{\data};
+        \addlegendentry{заостренная}
+        
+
+	\end{axis}
+\end{tikzpicture}	
+\end{document}

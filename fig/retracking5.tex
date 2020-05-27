@@ -1,0 +1,39 @@
+\documentclass[tikz,10pt]{standalone}
+
+
+\usepackage[utf8x]{inputenc}
+\usepackage[russian]{babel}
+
+\usepackage{amsmath,amssymb,cmap,pgfplots,pgfplotstable}
+\usetikzlibrary{arrows,calc,intersections}
+\pgfplotsset{compat=newest}
+\def\dataone{../data/impulse_big_retr.tsv}
+\def\datatwo{../data/impulse_big15_retr.tsv}
+
+
+\begin{document}
+\begin{tikzpicture}
+    \begin{axis}[
+            ylabel={$P(t)$}, 
+            xlabel={$t,$ c},
+            ytick=\empty,
+        ] 
+        \addplot +[thin, mark=none] table [col
+        sep=tab, x=T, y=P_model]{\dataone};
+        \addplot +[thin, mark=none] table [col
+        sep=tab, x=T, y=P_retr]{\dataone};
+	\end{axis}
+\end{tikzpicture}	
+\begin{tikzpicture}
+    \begin{axis}[
+            ylabel={$P(t)$}, 
+            xlabel={$t,$ c},
+            ytick=\empty,
+        ] 
+        \addplot +[thin, mark=none] table [col
+        sep=tab, x=T, y=P_model]{\datatwo};
+        \addplot +[thin, mark=none] table [col
+        sep=tab, x=T, y=P_retr]{\datatwo};
+	\end{axis}
+\end{tikzpicture}	
+\end{document}

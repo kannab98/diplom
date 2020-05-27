@@ -1,0 +1,26 @@
+\documentclass[tikz,10pt]{standalone}
+
+
+\usepackage[utf8x]{inputenc}
+\usepackage[russian]{babel}
+
+\usepackage{amsmath,amssymb,cmap,pgfplots,pgfplotstable}
+\usetikzlibrary{arrows,calc,intersections}
+\pgfplotsset{compat=newest}
+
+
+\begin{document}
+\begin{tikzpicture}
+    \begin{axis}[
+        ymode=log,
+        ylabel={$t, \text{ с}$}, 
+        xlabel={$X\times Y, \text{ размер сетки}$}
+        ]
+        \addplot +[thin, mark=none] table [x expr=\thisrow{count}^2,
+        y=gpu]{../data/gpucalc.tsv};
+        \addplot +[thin, mark=none] table [x expr=\thisrow{count}^2,
+        y=cpu]{../data/gpucalc.tsv};
+        \legend{$GPU$,$CPU$}
+	\end{axis}
+\end{tikzpicture}	
+\end{document}
