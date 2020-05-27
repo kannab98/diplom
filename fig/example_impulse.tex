@@ -1,0 +1,25 @@
+\documentclass{standalone}
+\input{preamble}
+\begin{document}
+\pgfplotsset{compat=1.9,width=\linewidth,height=7cm}
+\begin{tikzpicture}
+    \pgfplotstableread{../data/example_impulse.tsv}\mydata;
+        \begin{axis}[
+                        ylabel = {$P(t)$, отн.ед.}, 
+                        xlabel = {$t,$ с},
+                        %axis lines = middle,
+                        %xtick = \empty,
+                        axis x line = bottom,
+                        axis y line = left,
+                        ymax = 2.2,
+                        ymin = -0.2,
+                    ]
+
+            \addplot[color=red, line width = 1pt] 
+            table[ 
+                    x expr=\thisrowno{0},
+                    y expr=\thisrowno{1}
+                 ]{\mydata};
+         \end{axis}
+\end{tikzpicture}
+\end{document}
