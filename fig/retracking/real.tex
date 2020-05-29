@@ -1,0 +1,51 @@
+\documentclass[tikz,10pt]{standalone}
+
+
+\usepackage[utf8x]{inputenc}
+\usepackage[russian]{babel}
+
+\usepackage{amsmath,amssymb,cmap,pgfplots,pgfplotstable}
+\usetikzlibrary{arrows,calc,intersections}
+\pgfplotsset{compat=newest}
+\def\datathree{../../data/jason/impulse100.tsv}
+\def\datafour{../../data/jason/impulse250.tsv}
+\def\datafive{../../data/jason/impulse400.tsv}
+
+\begin{document}
+\begin{tikzpicture}
+    \begin{axis}[
+            ylabel={$P(t)$}, 
+            xlabel={$t,$ c},
+            ytick=\empty,
+        ] 
+        \addplot +[thin, mark=none] table [col
+        sep=semicolon, x=t0, y=p0]{\datathree};
+        \addplot +[thin, mark=none] table [col
+        sep=semicolon, x=t0, y=p1]{\datathree};
+    \end{axis}
+\end{tikzpicture}	
+\begin{tikzpicture}
+    \begin{axis}[
+            ylabel={$P(t)$}, 
+            xlabel={$t,$ c},
+            ytick=\empty,
+        ] 
+        \addplot +[thin, mark=none] table [col
+        sep=semicolon, x=t0, y=p0]{\datafour};
+        \addplot +[thin, mark=none] table [col
+        sep=semicolon, x=t0, y=p1]{\datafour};
+    \end{axis}
+\end{tikzpicture}	
+\begin{tikzpicture}
+    \begin{axis}[
+            ylabel={$P(t)$}, 
+            xlabel={$t,$ c},
+            ytick=\empty,
+        ] 
+        \addplot +[thin, mark=none] table [col
+        sep=semicolon, x=t0, y=p0]{\datafive};
+        \addplot +[thin, mark=none] table [col
+        sep=semicolon, x=t0, y=p1]{\datafive};
+    \end{axis}
+\end{tikzpicture}	
+\end{document}
