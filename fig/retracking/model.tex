@@ -1,0 +1,51 @@
+\documentclass[tikz,10pt]{standalone}
+
+
+\usepackage[utf8x]{inputenc}
+\usepackage[russian]{babel}
+
+\usepackage{amsmath,amssymb,cmap,pgfplots,pgfplotstable}
+\usetikzlibrary{arrows,calc,intersections}
+\pgfplotsset{compat=newest}
+\def\dataone{../../data/retracking/impulse5_retr.csv}
+\def\datatwo{../../data/retracking/impulse10_retr.csv}
+\def\datathree{../../data/retracking/impulse15_retr.csv}
+
+\begin{document}
+\begin{tikzpicture}
+    \begin{axis}[
+            ylabel={$P(t)$}, 
+            xlabel={$t,$ c},
+            ytick=\empty,
+        ] 
+        \addplot +[thin, mark=none] table [col
+        sep=tab, x=T, y=P_model]{\dataone};
+        \addplot +[thin, mark=none] table [col
+        sep=tab, x=T, y=P_retr]{\dataone};
+	\end{axis}
+\end{tikzpicture}	
+\begin{tikzpicture}
+    \begin{axis}[
+            ylabel={$P(t)$}, 
+            xlabel={$t,$ c},
+            ytick=\empty,
+        ] 
+        \addplot +[thin, mark=none] table [col
+        sep=tab, x=T, y=P_model]{\datatwo};
+        \addplot +[thin, mark=none] table [col
+        sep=tab, x=T, y=P_retr]{\datatwo};
+	\end{axis}
+\end{tikzpicture}	
+\begin{tikzpicture}
+    \begin{axis}[
+            ylabel={$P(t)$}, 
+            xlabel={$t,$ c},
+            ytick=\empty,
+        ] 
+        \addplot +[thin, mark=none] table [col
+        sep=tab, x=T, y=P_model]{\datathree};
+        \addplot +[thin, mark=none] table [col
+        sep=tab, x=T, y=P_retr]{\datathree};
+	\end{axis}
+\end{tikzpicture}	
+\end{document}

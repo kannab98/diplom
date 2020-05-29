@@ -2,7 +2,7 @@
 \documentclass[a4paper,14pt]{extarticle}
 
 % Шрифты, кодировки, символьные таблицы, переносы
-%\usepackage[utf8]{inputenc}
+\usepackage[utf8x]{inputenc}
 \usepackage[T2A]{fontenc}
 \usepackage[russian]{babel}
 %\usepackage{latex2doc}
@@ -14,7 +14,6 @@
 %\usepackage[subfigure]{tocloft}
 \usepackage{tikz}
 \usetikzlibrary{shapes,arrows,positioning,fit,backgrounds,calc}
-
 
 \usepackage
     {
@@ -66,7 +65,7 @@
 citecolor=linkcolor}
 \hypersetup{pageanchor=false}
 % Увеличенный межстрочный интервал, французские пробелы
-\linespread{1.2} 
+\linespread{1.5} 
 \frenchspacing 
 
 \newcommand{\mean}[1]{\langle#1\rangle}
@@ -108,33 +107,12 @@ citecolor=linkcolor}
 }
 
 
-%\pdfsuppresswarningpagegroup=1
-%-------------------------------
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    %применим колонтитул к стилю страницы
-%\pagestyle{fancy} 
-    %%очистим "шапку" страницы
-%% \fancyhead{} 
-    %%слева сверху на четных и справа на нечетных
-%\fancyhead[R]{\small Понур К.А.}%\labauthors 
-    %%справа сверху на четных и слева на нечетных
-%% \fancyhead[L]{Отчёт по лабораторной работе №\labnumber}
-%\fancyhead[L]{Кафедра общей физики} 
-    %%очистим "подвал" страницы
-%% \fancyfoot{} 
-    %% номер страницы в нижнем колинтуле в центре
-%\fancyfoot[C]{} 
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \renewcommand{\contentsname}{Оглавление}
 \usepackage{tocloft}
 \usepackage{secdot}
 \sectiondot{subsection}
 
-
-% \input{python}
+ \input{python}
 \begin{document}
 
 \newgeometry{left=30mm,right=15mm,top=15mm,bottom=25mm,bindingoffset=0cm,headheight=15pt}
@@ -168,7 +146,7 @@ citecolor=linkcolor}
 	%
 	%
 	Научный руководитель:\\[0.4em]
-	зав. отделением геофизических исследований ИПФ РАН,\\[0.4em] д.ф.-м.н., профессор\hfill \rule{2cm}{1pt} Мареев Е.А. \hphantom{aaa\,}\\[15pt]
+	д.ф.-м.н., профессор\hfill \rule{2cm}{1pt} Бакунов М.И. \hphantom{a\!a}\\[15pt]
 	%
 	%
 	Рецензент:\\[0.4em]
@@ -179,39 +157,50 @@ citecolor=linkcolor}
 	ст. преп. кафедры акустики, к.ф.-м.н.\hfill \rule{2cm}{1pt} Дерябин М.С.\hphantom{aa,}\\[15pt]
 	%
 	%
-	Студент 4-го курса \hfill \rule{1.9cm}{1pt} Понур К.А. \hphantom{\,\,}\\[15pt]
+	Студент 4-го курса \hfill \rule{2cm}{1pt} Понур К.А.
+    \hphantom{\,\,\,aaa}\\[15pt]
 	\vfill
 	\centering
 	Нижний Новгород\\[0.4em]
 	2020 год
-% \noindent\tikz[remember picture,overlay] {
-% % % \draw[draw=none,fill=black!50!gray]  rectangle ;
-% % \draw [step=1.0cm,gray] (current page.north east) grid (current page.south west);
-% \node[opacity=1,inner sep=0pt] at (current page.center){\includegraphics[width=\paperwidth,height=\paperheight]{fig/apt.png}
-% };}
 \end{spacing}
+
 \end{titlepage}
 \clearpage
 \restoregeometry
-%\tableofcontents
 
-%\input{sections/introduction}
+\tableofcontents
+\newpage
 
+\input{sections/introduction}
+\newpage
 \input{sections/water}
+\newpage
+\input{sections/pulse}
+\newpage
+\input{sections/retracking}
+\newpage
+\input{sections/conclusion}
+\newpage
 
-%\lstinputlisting{data/ef-pulse.py}
-%\input{sections/retracking}
-%\input{sections/pulse}
 
-% \bibliographystyle{gost2008}
-%\bibliography{
-               %sections/water.bib
-               %sections/retracking.bib
-               %sections/pulse.bib
-             %}
 
-% \appendix
-%\input{sections/appendix}
+\bibliographystyle{gost2008}
+\bibliography{sections/retracking, sections/water}
+\newpage
+
+\appendix
+\section{Программный код}
+\label{sec:code}
+Обращаем внимание на то, что весь код в листингах лишен обработчика исключений
+и условных конструкций  для экономии места. Листинги приведены в ознакомительных
+целях. Работоспособный программный код можно найти на
+\href{https://github.com/kannab98/diplom/}{Github'е} автора.
+\lstinputlisting[label={lst:spectrum}, caption={Вычисление спектра волнения как кусочно-аналитической функции}]{scripts/spectrum.py}
+\lstinputlisting[label={lst:surface}, caption={Вычисление спектра волнения как
+кусочно-аналитической функции}]{scripts/surface.py}
+\lstinputlisting[label={lst:kernel}, caption={Реализации CUDA вычислений на языке Python}]{scripts/kernel.py}
+
 
 
 \end{document}

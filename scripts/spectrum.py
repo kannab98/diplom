@@ -8,34 +8,8 @@ class Spectrum:
         # ускорение свободного падения.
         self.g = 9.81
 
-        if conf_file != None:
-            config = configparser.ConfigParser()
-            config.read(conf_file)
-            config = config['Spectrum']
-
+        self.U10 = U10
         # скорость ветра на высоте 10 м над уровнем моря.
-        if U10 == None:
-            try:
-                self.U10 = str2num(config['WindSpeed'])
-            except:
-                self.U10 = 5
-        else:
-            self.U10 = U10
-
-        if x == None:
-            try:
-                x = str2num(config['WaveEvolution'])
-            except:
-                x = 20170
-
-        self.band = band
-        if self.band == None:
-            try:
-                self.band = str(config['Band'])
-            except:
-                self.band = 'Ku'
-
-
         # коэффициент gamma (см. спектр JONSWAP)
         self.__gamma = self.Gamma(x)
         # коэффициент alpha (см. спектр JONSWAP)
@@ -58,12 +32,8 @@ class Spectrum:
             + 0.0996/self.k_m**1.5
             )
 
-        # print(self.k_edge)
-        
         # массив с границами моделируемого спектра.
         self.KT = np.array([self.k_m/4, self.k_edge[self.band]])
-        if KT != None:
-            self.KT = np.array(KT)
         # k0 -- густая сетка, нужна для интегрирования и интерполирования
         self.k0= np.logspace(np.log10(self.KT[0]), np.log10(self.KT[-1]), 10**4)
 
@@ -108,11 +78,6 @@ class Spectrum:
             self.__gamma**(np.exp(- ( np.sqrt(k/self.k_m)-1)**2 / (2*sigma**2) ))
            )
 
-        # Есть инфа, что k должно быть в степени 3/2
-        # Sw=(
-            # self.__alpha/2*k**(-3)*np.exp(-1.25*(self.k_m/k)**2 )*
-            # self.__gamma**(np.exp(- ( np.sqrt(k/self.k_m)-1)**2 / (2*sigma**2) ))
-           # )
         return Sw
 
     # Безразмерный коэффициент Gamma
