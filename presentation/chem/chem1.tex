@@ -1,0 +1,42 @@
+\documentclass[border=1pt]{standalone}
+\usepackage[europeanresistors,americancurrents]{circuitikz}
+\usepackage{amssymb}
+% \usetikzlibrary{tikzmark,decorations.pathmorphing}
+\begin{document}
+    \begin{circuitikz}[]
+        \draw (0,0) coordinate (0)
+
+        to ++(-2,0) coordinate(1)
+        to [L=$L_1$]++(0,-2) coordinate(2)
+        % to [L=$L_1$]++(0,-2) coordinate(3)
+        to ++(2,0)
+        to [C=$C_1$,name=epsilon]++(0,2)
+        to (0);
+          \fill[fill=cyan!40]
+          ([yshift=-\pgflinewidth]epsilon.se) 
+            rectangle 
+          ([yshift=\pgflinewidth]epsilon.nw);   
+  
+        \node at (epsilon.center)  
+        {$\scriptstyle\varepsilon(\omega)$};
+
+
+        \draw (-4,-1.1)
+        to [short,o-]++(1,0)
+        to [L,l_=$L_3$]++(0,-2) 
+        to [short,-o]++(-1,0);
+        % \draw                       [decorate,decoration=
+                                    % {snake,segment length=6pt,amplitude=1pt}]
+        % (1)+(-0.5,-0.5) to ++(-0.5,-1.5) node[left]{$M_{20}$};
+        % \draw (1) node[](M)
+        % \draw (3)+(-0.5,0.5) to ++(-0.5,1.5)
+                                    % [decorate,decoration=
+                                    % {snake,segment length=6pt,amplitude=1pt}]
+                                    % node[left]{$M_{10}$};
+        \draw (-4,1.1)
+        to [short,o-]++(1,0)
+        to [L,l_=$L_2$]++(0,-2)
+        to [short,-o]++(-1,0);
+
+    \end{circuitikz}
+\end{document}

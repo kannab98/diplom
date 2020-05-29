@@ -1,0 +1,98 @@
+% Тип документа
+\documentclass[a4paper,12pt]{extarticle}
+
+% Шрифты, кодировки, символьные таблицы, переносы
+\usepackage{cmap}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8x]{inputenc}
+\usepackage[russian]{babel}
+
+% Это пакет -- хитрый пакет, он нужен но не нужен
+\usepackage[mode=buildnew]{standalone}
+
+\usepackage{
+		% Дополнения Американского математического общества (AMS)
+		amssymb,
+		amsfonts,
+		amsmath,
+		amsthm,
+		physics,
+		% misccorr,
+		% 
+		% Графики и рисунки
+		wrapfig,
+		graphicx,
+		subcaption,
+		float,
+		caption,
+		csvsimple,
+		color,
+		booktabs,
+		geometry,
+		}  
+
+% \usepackage{xcolor}
+% \usepackage{hyperref}
+
+%  % Цвета для гиперссылок
+% \definecolor{linkcolor}{HTML}{000000} % цвет ссылок
+% \definecolor{urlcolor}{HTML}{799B03} % цвет гиперссылок
+ 
+% \hypersetup{pdfstartview=FitH,  linkcolor=linkcolor,urlcolor=urlcolor, colorlinks=true}
+% % Обводка текста в TikZ
+% \usepackage[outline]{contour}
+
+% % Увеличенный межстрочный интервал, французские пробелы
+% \linespread{1.3} 
+% \frenchspacing 
+
+
+
+\usepackage{array}
+\usepackage{pstool}
+
+
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \geometry		
+% 	{
+% 		left			=	2cm,
+% 		right 			=	2cm,
+% 		top 			=	3cm,
+% 		bottom 			=	3cm,
+% 		bindingoffset	=	0cm
+% 	}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+% 	%применим колонтитул к стилю страницы
+% \pagestyle{fancy} 
+% 	%очистим "шапку" страницы
+% \fancyhead{} 
+% 	%слева сверху на четных и справа на нечетных
+% \fancyhead[R]{\labauthors} 
+% 	%справа сверху на четных и слева на нечетных
+% \fancyhead[L]{Отчёт по лабораторной работе №\labnumber} 
+% 	%очистим "подвал" страницы
+% \fancyfoot{} 
+% 	% номер страницы в нижнем колинтуле в центре
+% \fancyfoot[C]{\thepage} 
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \renewcommand{\contentsname}{Оглавление}
+
+% \usepackage{tocloft}
+% % \renewcommand{\cftpartleader}{\cftdotfill{\cftdotsep}} % for parts
+% % \renewcommand{\cftsectiondotsep}{\cftdotsep}% Chapters should use dots in ToC
+% \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+% %\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}} % for sections, if you really want! (It is default in report and book class (So you may not need it).
+% % ---------
+% % \newcommand{\cftchapaftersnum}{.}%
+% % \usepackage{titlesec}
+% % \titlelabel{\thetitle.\quad}
+\usepackage{secdot}
+\sectiondot{subsection}

@@ -1,0 +1,94 @@
+%!TEX root = ../plasma.tex
+\usepackage[english,russian]{babel}
+% \usepackage[T2A,T1]{fontenc}
+\usepackage[utf8]{inputenc}
+% \usepackage{tikz}
+\usepackage[unicode]{hyperref}
+% \usepackage{pgfplots,standalone}
+\usepackage{caption}
+\usepackage[normalem]{ulem}
+\usepackage
+	{
+		% Дополнения Американского математического общества (AMS)
+		amssymb,
+		amsfonts,
+		amsmath,
+		amsthm,
+		physics
+		}
+% \usepackage{lmodern}
+% \pgfplotsset{compat=newest} 
+% \usetikzlibrary{%
+%     decorations.pathreplacing,%
+%     decorations.pathmorphing,%
+%     patterns,%
+%     angles,%
+%     quotes,%
+%     calc, %
+%     3d, %
+%     backgrounds, %
+%     positioning%
+% }
+
+
+% Стиль презентации
+
+ \usetheme{default}
+ \usefonttheme{professionalfonts}
+ \usecolortheme{}
+ % \usecolortheme{whale}
+% \let\oldframe\enumerate
+% \renewcommand{\frame}{%
+% \oldframe
+% \let\olditemize\itemize
+% \renewcommand\itemize{\olditemize\addtolength{\itemsep}{100pt}}%
+% }
+ 
+
+% \setbeamercolor{frametitle right}{fg=white,bg=Brown!85}
+% \setbeamercolor{frametitle}{fg=white,bg=Brown!85}
+%\setbeamercolor{frametitle right}{fg=white,bg=black!85} %
+\setbeamercolor{frametitle}{fg=white,bg=black!85} % Цвет титульника
+\setbeamercolor{item projected}{fg=white,bg=black!85} % Цвет титульника
+\setbeamertemplate{blocks}[rounded][shadow=false] %стиль блоков
+\setbeamertemplate{itemize item}{\color{black!85}$\bullet$}
+\setbeamertemplate{headline}{}
+\setbeamertemplate{footline}{} 
+\setbeamertemplate{navigation symbols}{} % минус навигация
+% \let\Tiny=\tiny % решает проблему со шрифтами в TexLive
+%\setbeamertemplate
+%	{footline}{
+%		\color{black!40!white}
+%		\quad\hfill
+%		\insertframenumber/\inserttotalframenumber
+%		\hfill\vspace{1cm}\quad
+%	} 
+
+
+\beamersetrightmargin{1cm} 
+\beamersetleftmargin{1cm}
+
+\setbeamertemplate{enumerate item}
+{
+	\usebeamercolor[bg]{item projected}
+	\raisebox{1pt}{\colorbox{black!85}{\color{fg}\footnotesize\insertenumlabel}}%
+}
+
+% \setbeamertemplate{itemize item}{%
+% 	\usebeamercolor[bg]{item projected}%
+% 	\raisebox{3pt}{{\colorbox{black!85}\footnotesize$\bf$\bullet}}%
+% }
+
+\setbeamercolor{item projected}{bg=black,fg=white}
+\setbeamercolor{title}{bg=black!85,fg=white}
+
+\setbeamertemplate{frametitle}
+{	
+	\nointerlineskip
+	\begin{beamercolorbox}[sep=15pt,ht=1.9em,wd=\paperwidth]{frametitle}
+		% \vspace{}%
+		\strut\insertframetitle\strut
+		\vskip-1.8ex%	
+	\end{beamercolorbox}
+}
+
