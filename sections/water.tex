@@ -138,7 +138,7 @@ $n$-ой гармоники  $A_n$
     \frac{1}{(2 \pi)^2} 
         \int\limits_{-\infty}^{\infty}
         \int\limits_{- \pi}^{\pi} 
-    S_\xi(\kappa) \Phi(\phi) \kappa e^{i \vec \kappa\vec \rho} \dd \kappa \dd \phi = \\
+    S_\xi(\kappa) \Phi_\xi(\phi) \kappa e^{i \vec \kappa\vec \rho} \dd \kappa \dd \phi = \\
     = \frac{1}{(2 \pi)^2} \int\limits_{-\infty}^{\infty} \kappa S_\xi
     (\kappa) e^{i \vec \kappa 
     \vec \rho} \dd \kappa = \sum\limits_{n=-\infty}^{\infty} \frac{(A_n(\vec
@@ -210,12 +210,12 @@ Ku-диапазон, (b) C-диапазон.}
 
 Графики $S(\kappa)$ и  $\Phi_\xi(\kappa)$ для приведены на рис.
 \ref{fig:spectrum_heights} и рис. \ref{fig:angles_distrib} соответственно
-\cite{spectrum}. 
+\cite{rybkova}. 
 Вычисления на рис. \ref{fig:spectrum_heights} выполнены для скоростей ветра 
 $U_{10} = 5$ м/с (синяя кривая), 10 м/с (красная кривая) и 15 м/с (коричневая
 кривая), также на  рис. \ref{fig:spectrum_heights} учитывается граничное волновое число
 для моделирования поверхности для двух диапазонов излучения: $Ku$ и $C$. В
-рамках двух масштабной модели  рассеивающей поверхности \cite{bass-and_fuks}.
+рамках двух масштабной модели  рассеивающей поверхности \cite{bass-and-fuks}.
 Волновое число $\kappa_m$ соответствует  максимуму спектра волнения  $S(\kappa)$. Стоит
 заметить, что с ростом скорости ветра число используемых гармоник, необходимых
 для получения одинакового качества моделирования,
@@ -282,11 +282,8 @@ $\kappa$, на котором определен спектр волнения (
 по оси волновых чисел. Максимуму спектра волнения соответствует волновое числа
 $\kappa_m$, левую границу спектра определим как $\frac{\kappa}{4}$, а правую
 границу обозначим $\kappa_{cut}$. Это значение будет различаться для Ku- и
-C-диапазонов.
-\begin{equation}
-    \label{eq:k_edge}
-    \text{KEK}
-\end{equation}
+C-диапазонов. Формула для определения была получена в \cite{karaev} и приведена  
+в приложении \ref{sec:code} \ref{lst:spectrum}.
 
 
 Самый простой вариант расположения гармоник это равномерный шаг, который можно определить следующим образом:
@@ -470,7 +467,7 @@ $[\kappa_{min},
 требованию сопряжения моментов спектра модельного и реального полей, которое
 записывается в виде
  \begin{equation}
-    \sum\limits_{n=1}^{N} b_i \kappa_i^{2p} 
+    \sum\limits_{p=1}^{N} b_i \kappa_i^{2p} 
     = \int\limits_{0}^{\infty} \kappa^{2p}S(\kappa) \dd \kappa, 
 \end{equation}
 
@@ -508,8 +505,8 @@ $[\kappa_{min},
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.6\linewidth]{fig/correlation_angles_wa.png}
-    \caption{ Корреляционная функция наклов для логарифмического расположения
+    \includegraphics[width=0.6\linewidth]{fig/correlation_angles_wa.pdf}
+    \caption{ Нормированная корреляционная функция уклонов для логарифмического расположения
     гармоник (зеленая кривая) и расположения по методу отбеливания спектра
 (синяя кривая) для скорости ветра 10 м/с}
     \label{fig:nodes}
@@ -517,7 +514,7 @@ $[\kappa_{min},
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.6\linewidth]{fig/correlation_height_wa.png}
+    \includegraphics[width=0.6\linewidth]{fig/correlation_height_wa.pdf}
     \caption{ Нормированная корреляционная функция высот для логарифмического расположения
     гармоник (зеленая кривая) и расположения по методу отбеливания спектра
 (синяя кривая) для скорости ветра 10 м/с}
@@ -533,12 +530,12 @@ $[\kappa_{min},
     \centering
     \begin{subfigure}{0.49\linewidth}
         \centering
-        \includegraphics[width=\linewidth]{fig/correlation_height_height2.png}
+        \includegraphics[width=\linewidth]{fig/correlation_height_height2.pdf}
         \caption{}
     \end{subfigure}
     \begin{subfigure}{0.49\linewidth}
         \centering
-        \includegraphics[width=\linewidth]{fig/correlation_angles_height2.png}
+        \includegraphics[width=\linewidth]{fig/correlation_angles_height2.pdf}
         \caption{}
     \end{subfigure}
     \caption{ Нормированная корреляционные функции высот (a) и уклонов (b) при расположении гармоник
@@ -550,12 +547,13 @@ $[\kappa_{min},
     \centering
     \begin{subfigure}{0.49\linewidth}
         \centering
-        \includegraphics[width=\linewidth]{fig/correlation_height_slopes2.png}
+        \includegraphics[width=\linewidth]{fig/correlation_height_slopes2.pdf}
         \caption{}
     \end{subfigure}
     \begin{subfigure}{0.49\linewidth}
         \centering
-        \includegraphics[width=\linewidth]{fig/correlation_angles_slopes2.png}
+        \includegraphics[width=\linewidth]{fig/correlation_angles_slopes2.pdf}
+        \caption{}
     \end{subfigure}
     \caption{Нормированная корреляционные функции высот (a) и уклонов (b) при расположении гармоник
     по методу <<отбеливания>> спектра по формуле \eqref{eq:ki_slopes} }

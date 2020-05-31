@@ -30,7 +30,10 @@
 
 			\item Оптимизировать существующие алгоритмы.
 
-
+            \item Предложить способы приближения моделируемой поверхности к
+                реальной морской поверхности.
+            \item Провести численный эксперимент на модельной поверхности с
+                орбитальным радиовысотомером.
 		\end{enumerate}
 		\vfill
 % \end{frame}
@@ -80,25 +83,125 @@
 
 \begin{frame}[t]
 
-	\frametitle{Двумерная модель поверхностного волнения}
-	Представим морскую поверхность в виде суммы синусоид с детерминированными амплитудами и случайными фазами:
-\begin{equation}
-	\zeta(\vec r, t)= \sum\limits_{n=1}^N \sum_{m=1}^M A_n(k_n)\cdot 
-		\Phi_{k_nm}(\phi_m) \cos(\omega_n t + \vec k_n \vec r + \psi_{nm}),
-\end{equation}
-$\psi_{nm}$ -- случайная фаза, $A_n$ -- амплитуда $n$-ой гармоники.
+\frametitle{Двумерная модель поверхностного волнения}
 
-Амплитуда, которая является мощностью на интервале $\Delta k_n$, вычисляется по спектру моделируемой поверхности
+
 \begin{equation}
-	A_n(k_n)=\sqrt{2 S(k_n) \Delta k_n}
+    \label{eq:surface2d}
+    z(\vec r,t) = \sum\limits_{n=1}^{N} \sum\limits_{m=1}^{M}
+    A_n(\kappa_n) \cdot
+    F_{nm}(\kappa_n,\phi_m) \cos \qty(\omega_n t + \vec \kappa \vec r + \psi_{nm}),
+\end{equation}
+где $\psi_{nm}$ -- случайная фаза, равномерно распределенная в интервале от
+$-\pi$
+до $ \pi$, 
+
+$F_m(\kappa_n, \phi_m)$ -- азимутальное
+распределение для гармоники с волновым числом  $\kappa_n$,  
+
+$\vec \kappa_n =
+(\kappa_{nx}, \kappa_{ny})$ -- 
+волновой вектор. 
+
+\begin{equation}
+    \label{eq:Amplitude}
+    A_n(\kappa_n) = \frac{1}{2 \pi} \sqrt{\int\limits_{\Delta \kappa_n} 2
+        S(\kappa)
+    \dd \kappa},
+\end{equation}
+ где  $S(\kappa)$  - спектральная плотность
+мощности,
+
+\begin{equation}
+    F_{nm}(\kappa_n,\phi_m) = \sqrt{\int\limits_{\Delta \phi_m}
+    \Phi_{\xi}(\kappa_n,\phi) \dd \phi},
+    \end{equation}
+ где  $\Phi(\kappa_n, \phi)$   -- { спектральная плотность
+    мощности}
+
+\end{frame}
+
+\begin{frame}[t]{Метод <<отбеливания>> спектра}
+\begin{minipage}{0.49\linewidth}
+    \centering
+    Для высот:
+\begin{equation}
+    \footnotesize
+    \kappa_i = \sqrt{\frac{N}{\int\limits_{-\infty}^{\infty} S(\kappa)
+    \dd \kappa}} \cdot \int\limits_{\Delta k_i} \kappa^2
+        S(\kappa) \dd \kappa, 
 \end{equation}
 
-$\Phi_{nm}$ -- азимутальное распределение, вычисляемое следующим образом:
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+    \centering
+    Для уклонов: 
 \begin{equation}
-	\Phi_{nm}(k_n,\phi_m)=\sqrt{\Phi(k_n,\phi_m) \Delta \phi},
+    \footnotesize
+    \kappa_i = \sqrt{\frac{N}{\int\limits_{-\infty}^{\infty} \kappa^2 S(\kappa)
+    \dd \kappa}} \cdot \int\limits_{\Delta k_i} \kappa^4
+        S(\kappa) \dd \kappa. 
 \end{equation}
-$\Delta \phi$ -- шаг по углу.
+\end{minipage}
+\begin{figure}[h!]
+    \begin{subfigure}{0.45\linewidth}
+        \includegraphics[width=\linewidth]{fig/fig3}
+        \caption*{\footnotesize Расположение гармоник в области пространственных частот по
+        методу отбеливания спектра, синим цветом обозначены гармоники,
+    обеспечивающие минимум шума для корреляционной функции высот, красным --
+для уклонов}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.49\linewidth}
+        \includegraphics[width=\linewidth]{fig/water/whitening}
+        \caption*{\footnotesize Корреляционная функция наклонов для различного расположения
+        гармоник в частотной области: (a) логарифмическое распределение, (b)
+    метод <<отбеливания>> спектра}
+    \end{subfigure}
+\end{figure}
+\end{frame}
 
+\begin{frame}[t]{Изображение поверхностей}
+    \begin{figure}[h]
+        \begin{subfigure}{0.49\linewidth}
+            \centering
+            \includegraphics[width=1\linewidth]{img/heights}
+        \end{subfigure}
+        \begin{subfigure}{0.49\linewidth}
+            \centering
+            \includegraphics[width=1\linewidth]{img/slopes}
+        \end{subfigure}
+        \begin{subfigure}{0.49\linewidth}
+            \centering
+            \includegraphics[width=1\linewidth]{img/slopesxx.png}
+        \end{subfigure}
+        \begin{subfigure}{0.49\linewidth}
+            \centering
+            \includegraphics[width=1\linewidth]{img/slopesyy}
+        \end{subfigure}
+    \end{figure}    
+\end{frame}
+
+\begin{frame}[t]
+	\frametitle{Увеличение производительности}
+    Увеличение производительности достигается за счет библиотеки Numba, в
+    которую входит JIT-компилятор с открытым исходным кодом,
+    переводящий подмножество Python и NumPy в быстрый машинный код
+    \begin{figure}[h]
+        \begin{subfigure}{0.49\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{fig/water/gpucpu.pdf}
+        \end{subfigure}
+        \begin{subfigure}{0.49\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{fig/water/gpucpu1.pdf}
+        \end{subfigure}
+    \end{figure}
+    Используемое оборудование: 
+
+    NVIDIA GeForce GTX 1660 (GPU),
+    Intel Core i5-2400 (CPU)
 \end{frame}
 \begin{frame}[t]
     \frametitle{Модель заостренной поверхности}
@@ -127,9 +230,7 @@ $\Delta \phi$ -- шаг по углу.
         \centering
         \includegraphics[height=0.5\textheight]{fig/evolution}
     \end{figure}
-
 \end{frame}
-
 \begin{frame}[t]
 	\frametitle{Модель заостренной поверхности}
     \begin{figure}[h]
@@ -145,87 +246,114 @@ $\Delta \phi$ -- шаг по углу.
     \begin{minipage}{0.45\linewidth}
         \footnotesize
         \begin{equation}
-            \begin{gathered}
-            \sigma^2_{\alpha \beta \gamma} =  \int\limits_{}
-            \frac{\kappa_x^\alpha 
-            \kappa_y^\beta}{\kappa^{\gamma}} S(\vec \kappa) \dd \vec \kappa,\\
-            \sigma_n^2 = \int\limits_{}^{} \kappa^n S(\vec \kappa) \dd \vec \kappa 
+            \textstyle 
+            \begin{gathered} \sigma^2_{\alpha \beta \gamma} =
+                \int\limits_{} \frac{\kappa_x^\alpha
+                \kappa_y^\beta}{\kappa^{\gamma}} S(\vec \kappa) \dd \vec
+                \kappa,\\ \sigma_n^2 = \int\limits_{}^{} \kappa^n S(\vec
+                \kappa) \dd \vec \kappa 
             \end{gathered}
         \end{equation}
         \begin{equation}
             \label{eq:char}
-            \Phi(\theta) = (1 - i \theta \sigma_1^2 + \theta^2 \Sigma_1)
-            \exp(-\frac{1}{2} \theta^2 \sigma_0^2),
+            \Theta(\theta) = (1 - i \theta \sigma_1^2 + \theta^2 \Sigma_1)
+            \exp(-\frac{1}{2} \theta^2 \sigma_0^2)-
         \end{equation}
-        где $\Sigma_1 = \sigma^4_{111} - \sigma_{201}^2 \sigma_{021}^2$.
-    \end{minipage}
+        характеристическая функция,
+        \end{minipage}
     \hfill
     \begin{minipage}{0.45\linewidth}
         \footnotesize
         \begin{equation}
-            \mean{z} = - \sigma_1^2, \quad \mean{z^2} = \sigma_0^2 - 2 \Sigma_1
+        \textstyle 
+            \tilde P_{\xi_x}(z) = 
+            P_{\xi_x}(z)\qty(1 + 
+                            \frac{\Sigma_1}{\sigma_0^2} -
+                            \frac{\sigma_1^2}{\sigma_0^2} z -
+                            \frac{\Sigma_1}{\sigma_0^4}z^2), 
         \end{equation}
+        где $P_\xi(z)$ -- гауссовая плотность вероятности наклонов линейной
+    поверхности,  $z$ -- высоты морской поверхности.
+        \begin{equation}
+            \mean{z} = - \sigma_1^2, \quad \mean{z^2} = \sigma_0^2 - 2
+            \Sigma_1,
+        \end{equation}
+        $\Sigma_1 = \sigma^4_{111} - \sigma_{201}^2 \sigma_{021}^2$.
     \end{minipage}
 \end{frame}
 
-\begin{frame}[t]{Метод <<отбеливания>> спектра}
-\begin{figure}[h!]
-    \begin{subfigure}{0.49\linewidth}
-        \includegraphics[width=\linewidth]{fig/fig1}
-    \end{subfigure}
-    \begin{subfigure}{0.49\linewidth}
-        \includegraphics[width=\linewidth]{fig/fig2}
-    \end{subfigure}
-    \begin{subfigure}{0.49\linewidth}
-        \includegraphics[width=\linewidth]{fig/fig3}
-    \end{subfigure}
-\end{figure}
-    
-\end{frame}
 
-\begin{frame}[t]{Изображение поверхностей}
-    \begin{figure}[h]
-        \begin{subfigure}{0.49\linewidth}
-            \centering
-            \includegraphics[width=1\linewidth]{img/heights5.png}
-        \end{subfigure}
-        \begin{subfigure}{0.49\linewidth}
-            \centering
-            \includegraphics[width=1\linewidth]{example-image-a}
-        \end{subfigure}
-        \begin{subfigure}{0.49\linewidth}
-            \centering
-            \includegraphics[width=1\linewidth]{example-image-a}
-        \end{subfigure}
-        \begin{subfigure}{0.49\linewidth}
-            \centering
-            \includegraphics[width=1\linewidth]{example-image-a}
-        \end{subfigure}
-    \end{figure}    
-\end{frame}
-\begin{frame}[t]
-	\frametitle{Увеличение производительности}
-    \begin{figure}[h]
-        \begin{subfigure}{0.49\linewidth}
-            \centering
-            \includegraphics[width=\linewidth]{fig/water/gpucpu.pdf}
-        \end{subfigure}
-        \begin{subfigure}{0.49\linewidth}
-            \centering
-            \includegraphics[width=\linewidth]{fig/water/gpucpu1.pdf}
-        \end{subfigure}
-    \end{figure}
-\end{frame}
+
+
+
 
 
 \begin{frame}[t]
-	\frametitle{Моделирование отраженного импульса}
+	\frametitle{Форма импульса отраженного от плоской поверхности}
     \begin{figure}[h]
         \centering
         \includegraphics[width=\linewidth]{fig/flat_wave1.pdf}
     \end{figure}
-\end{frame}
+    \footnotesize
+    \begin{equation}
+        \label{eq:E}
+        E = \sum\limits_{i=1}^{M}\frac{E_0}{R_i^2} \exp{-2i\vec k\vec R_i}
+        \sigma_i^o 
+        G^2(\theta_i)
+        , \text{ где}
+    \end{equation}
+    $R_i$ -- радиус-вектор  от радиовысотомера к рассеивающей площадке,
 
+    $G(\theta)$ -- диаграмма направленности антенны,
+
+    $\sigma^o$ -- сечение обратного рассеяния площадки.
+\end{frame}
+\begin{frame}[t]
+	\frametitle{Геометрия задачи для взволнованной поверхности}
+    \begin{minipage}{0.75\linewidth}
+    \begin{figure}[h]
+        \begin{subfigure}{\linewidth}
+            \centering
+            \def\svgwidth{\linewidth}
+            \includesvg{local_theta}
+        \end{subfigure}
+    \end{figure}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.24\linewidth}
+    $(x_0,y_0,z_0)$ -- координаты радиовысотомера
+
+    $(x,y,z)$ -- координата точки на поверхности
+
+    $\zeta_x,\zeta_y$ -- уклоны поверхности по осям $x$ и  $y$
+
+    \end{minipage}
+
+    \begin{equation}
+        \cos \theta_0 = \frac{\vec R \vec n}{|\vec R|\abs{\vec n}} - \text{
+        локальный угол падения }
+    \end{equation}
+\end{frame}
+\begin{frame}[t]
+	\frametitle{Моделирование отраженного импульса}
+    \begin{figure}[h]
+        \begin{subfigure}{0.60\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{img/theta0}
+        \end{subfigure}
+        \begin{subfigure}{0.39\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{fig/theta}
+        \end{subfigure}
+        \caption*{Вычисление локального угла падения
+            для радиовысотомера, находящегося в
+            точке c координатами $(0,0)$ на высоте 1000 км над уровнем
+            моря.  Точки, градусная мера которых меньше $\theta<1^\circ$ в
+            дальнейшем будут считаться зеркальными и они будут участвовать в
+            формировании отраженного импульса.}
+    %\caption*{Форма отраженного импульса в зависимости от времени.}
+    \end{figure}
+\end{frame}
 \begin{frame}[t]
 	\frametitle{Моделирование отраженного импульса}
     \begin{equation}
@@ -284,33 +412,12 @@ $\Delta \phi$ -- шаг по углу.
         \centering
         \def\svgwidth{0.8\linewidth}
         \includesvg{example_impulse1}
-        \caption{Качественная форма импульса с обозначением основных параметров.}
+        %\caption{Качественная форма импульса с обозначением основных параметров.}
         \label{fig:impuls}
     \end{figure}
 \end{frame}
-\begin{frame}[t]
-	\frametitle{Моделирование отраженного импульса}
-    \begin{figure}[h]
-        \begin{subfigure}{\linewidth}
-            \centering
-            \def\svgwidth{0.8\linewidth}
-            \includesvg{local_theta}
-        \end{subfigure}
-    \end{figure}
-\end{frame}
-\begin{frame}[t]
-	\frametitle{Моделирование отраженного импульса}
-    \begin{figure}[h]
-        \begin{subfigure}{0.60\linewidth}
-            \centering
-            \includegraphics[width=\linewidth]{img/theta0}
-        \end{subfigure}
-        \begin{subfigure}{0.39\linewidth}
-            \centering
-            \includegraphics[width=\linewidth]{fig/theta}
-        \end{subfigure}
-    \end{figure}
-\end{frame}
+
+
 % \begin{frame}[t]\frametitle{Модель поверхностного волнения}
     
 % \begin{figure}[h!]
@@ -392,7 +499,7 @@ $\Delta \phi$ -- шаг по углу.
     \end{subfigure}
     \hfill
     \begin{subfigure}{0.42\linewidth}
-        \centering
+        %\centering
         \begin{tabular}{|c|c|c|c|}
             \hline
             $h$, м      & $0.83$ & $1.36$ & $5.14$\\
@@ -405,11 +512,36 @@ $\Delta \phi$ -- шаг по углу.
         $h$ -- высота, заложенная в моделировании
 
         $\tilde h$ -- высота, полученная нами
+
+        Усредненная по 100 импульсам относительная погрешность измерения
+        составляет 10-15\%.
     \end{subfigure}
 
 \end{figure}
 \end{frame}
 
+\begin{frame}
+\frametitle{Ретрекинг импульсов с Jason-3}
+\vskip -3pt
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}{\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{img/swh_rms_ku_mle3}
+    \end{subfigure}
+\end{figure}
+\end{frame}
+\begin{frame}
+\frametitle{Ретрекинг импульсов с Jason-3}
+\vskip -3pt
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}{\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{img/waveforms_20hz_ku.pdf}
+    \end{subfigure}
+\end{figure}
+\end{frame}
 \begin{frame}
 \frametitle{Ретрекинг импульсов с Jason-3}
 \vskip -3pt
@@ -444,20 +576,49 @@ $\Delta \phi$ -- шаг по углу.
         $h$ -- высота, полученная NASA
 
         $\tilde h$ -- высота, полученная нами
+
+    Усредненная по 100 импульсам относительная погрешность измерения
+    составляет $<2\%$.
     \end{subfigure}
     %\caption{Форма отраженного импульса в зависимости от времени, полученного с
     %радиовысотомера космической миссии Jason-3.}
-    \label{fig:impulse_jason}
+
 \end{figure}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[t]
+	\frametitle{Заключение}
+	\vfill
+    В настоящей работе были:
+		\begin{enumerate}
+			\item Изучены принципы моделирования морской поверхности
 
-\frametitle{Заключение}
-\vskip -3pt
-\begin{figure}
-	%\animategraphics[autoplay,loop,width=0.8\linewidth]{15}{anim/water}{0}{360}
-\end{figure}
+			\item Предложены способы приближения модельной поверхности к
+                реальной
+
+			\item Предложены способы оптимизации времени моделирования
+		\end{enumerate}
+		\vfill
+
+    Применение модели:
+
+	\begin{enumerate}
+		% \item Проведение испытаний оборудования до его изготовления
+		\item Тестирование и разработка алгоритмов восстановления океанографической информации
+		\item Оценка возможностей новых радиолокаторов
+		\item Постановка численных экспериментов
+	\end{enumerate}
+	\vfill
+
+    Дальнейшие планы: 
+	\begin{enumerate}
+        %\item \sout{Заварить кофе}
+		\item Модификация метода заостренной волны
+        \item Учет при моделировании формы земли, атмосферы и ионосферы
+	\end{enumerate}
+	\vfill
+    
 \end{frame}
+
 
 \end{document}

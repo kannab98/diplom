@@ -33,8 +33,10 @@
 
 % Стиль презентации
 
+\definecolor{darkcerulean}{rgb}{0.03, 0.27, 0.49}
  \usetheme{default}
  \usefonttheme{professionalfonts}
+ %\usefonttheme{default}
  \usecolortheme{}
  % \usecolortheme{whale}
 % \let\oldframe\enumerate
@@ -48,10 +50,11 @@
 % \setbeamercolor{frametitle right}{fg=white,bg=Brown!85}
 % \setbeamercolor{frametitle}{fg=white,bg=Brown!85}
 %\setbeamercolor{frametitle right}{fg=white,bg=black!85} %
-\setbeamercolor{frametitle}{fg=white,bg=black!85} % Цвет титульника
-\setbeamercolor{item projected}{fg=white,bg=black!85} % Цвет титульника
-\setbeamertemplate{blocks}[rounded][shadow=false] %стиль блоков
-\setbeamertemplate{itemize item}{\color{black!85}$\bullet$}
+\setbeamercolor{frametitle}{fg=white,bg=darkcerulean} % Цвет титульника
+\setbeamercolor{item projected}{fg=white,bg=darkcerulean} % Цвет титульника
+%\setbeamercolor{item projected}{fg=white,bg=black!85} % Цвет титульника
+\setbeamertemplate{blocks}[rounded][shadow=true] %стиль блоков
+\setbeamertemplate{itemize item}{\color{darkcerulean}$\bullet$}
 \setbeamertemplate{headline}{}
 \setbeamertemplate{footline}{} 
 \setbeamertemplate{navigation symbols}{} % минус навигация
@@ -71,7 +74,7 @@
 \setbeamertemplate{enumerate item}
 {
 	\usebeamercolor[bg]{item projected}
-	\raisebox{1pt}{\colorbox{black!85}{\color{fg}\footnotesize\insertenumlabel}}%
+	\raisebox{1pt}{\colorbox{darkcerulean}{\color{fg}\footnotesize\insertenumlabel}}%
 }
 
 % \setbeamertemplate{itemize item}{%
@@ -79,8 +82,10 @@
 % 	\raisebox{3pt}{{\colorbox{black!85}\footnotesize$\bf$\bullet}}%
 % }
 
-\setbeamercolor{item projected}{bg=black,fg=white}
-\setbeamercolor{title}{bg=black!85,fg=white}
+\setbeamercolor{item projected}{bg=darkcerulean,fg=white}
+\setbeamercolor{title}{bg=darkcerulean,fg=white}
+
+%\setbeamercolor{title}{bg=black!85,fg=white}
 
 \setbeamertemplate{frametitle}
 {	
