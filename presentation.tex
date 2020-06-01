@@ -175,19 +175,30 @@ $\vec \kappa_n =
     
 \end{frame}
 
-\begin{frame}[t]{Метод <<отбеливания>> спектра}
+\begin{frame}[t]{}
+    \footnotesize
     \begin{figure}[h!]
         \centering
         \begin{subfigure}{0.49\linewidth}
             \centering
             \includegraphics[width=\linewidth]{fig/correlation_height_height2.pdf}
+            \caption{}
         \end{subfigure}
         \begin{subfigure}{0.49\linewidth}
             \centering
             \includegraphics[width=\linewidth]{fig/correlation_angles_height2.pdf}
+            \caption{}
         \end{subfigure}
+        \caption{(a) корреляционная функция высот, (b) корреляционная функция
+        наклонов}
         \label{fig:ki}
     \end{figure}
+
+    При неправильном выборе числа и/или положения гармоник при
+    моделировании корреляционные
+    функции моделируемой поверхности становятся зашумленными. 
+
+
 \end{frame}
 
 \begin{frame}[t]{Метод <<отбеливания>> спектра}
@@ -600,17 +611,18 @@ $\vec \kappa_n =
     \end{subfigure}
 \end{figure}
 \end{frame}
-\begin{frame}
-\frametitle{Ретрекинг импульсов с Jason-3}
-\vskip -3pt
-\begin{figure}[ht]
-    \centering
-    \begin{subfigure}{\linewidth}
-        \centering
-        \includegraphics[width=\linewidth]{img/waveforms_20hz_ku.pdf}
-    \end{subfigure}
-\end{figure}
-\end{frame}
+%\begin{frame}
+%\frametitle{Ретрекинг импульсов с Jason-3}
+%\vskip -3pt
+%\begin{figure}[ht]
+    %\centering
+    %\begin{subfigure}{\linewidth}
+        %\centering
+        %\includegraphics[width=\linewidth]{img/waveforms_20hz_ku.pdf}
+    %\end{subfigure}
+%\end{figure}
+%\end{frame}
+
 \begin{frame}
 \frametitle{Ретрекинг импульсов с Jason-3}
 \vskip -3pt
@@ -646,8 +658,8 @@ $\vec \kappa_n =
 
         $\tilde h$ -- высота, полученная нами
 
-    Усредненная по 100 импульсам относительная погрешность измерения
-    составляет $<2\%$.
+    %Усредненная по 100 импульсам относительная погрешность измерения
+    %составляет $<2\%$.
     \end{subfigure}
     %\caption{Форма отраженного импульса в зависимости от времени, полученного с
     %радиовысотомера космической миссии Jason-3.}
@@ -655,6 +667,15 @@ $\vec \kappa_n =
 \end{figure}
 \end{frame}
 
+\begin{frame}[t]{}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.6\linewidth]{fig/retracking/compare}
+        \caption{Восстановление высоты значительного волнения штатным методом,
+        которым обрабатываются данные Jason-3 в сравнении с предложенным
+    методом}
+    \end{figure}
+\end{frame}
 \begin{frame}[t]
 	\frametitle{Заключение}
 	\vfill

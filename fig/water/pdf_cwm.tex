@@ -5,11 +5,12 @@
 \usepackage[russian]{babel}
 
 \usepackage{amsmath,amssymb,cmap,pgfplots,pgfplotstable}
+\usepackage{xcolor}
 \usetikzlibrary{arrows,calc,intersections}
 \pgfplotsset{compat=newest}
 
 
-\def\data{../data/pdf_cwm.csv}
+\def\data{../../data/pdf_cwm.csv}
 \begin{document}
 \begin{tikzpicture}
     \begin{axis}[
@@ -18,7 +19,7 @@
         ]
         \addplot +[thin, mark=none] table [col sep=semicolon, x=zx,
         y=W_lin]{\data};
-        \addplot +[thin, mark=none] table [col sep=semicolon, x=zx,
+        \addplot +[thin, color=orange, mark=none, ] table [col sep=semicolon, x=zx,
         y=W_cwm]{\data};
 	\end{axis}
 \end{tikzpicture}	

@@ -1,0 +1,28 @@
+\documentclass[tikz,10pt]{standalone}
+
+
+\usepackage[utf8x]{inputenc}
+\usepackage[russian]{babel}
+
+\usepackage{amsmath,amssymb,cmap,pgfplots,pgfplotstable}
+\usetikzlibrary{arrows,calc,intersections}
+\pgfplotsset{compat=newest}
+\def\data{../../data/jason/compare.csv}
+
+\begin{document}
+\begin{tikzpicture}
+    \begin{axis}[
+            ylabel={Штатный метод}, 
+            xlabel={Предложенный метод},
+            xmin=0,
+            xmax=1.6,
+            ymin=0,
+            ymax=1.6,
+            xtick = {0, 0.5, 1, 1.5},
+            ytick = {0, 0.5, 1, 1.5},
+        ] 
+        \addplot +[only marks] table [col
+        sep=semicolon, x=h_my, y=h_mle3]{\data};
+    \end{axis}
+\end{tikzpicture}	
+\end{document}
