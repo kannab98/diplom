@@ -9,7 +9,7 @@
 \pgfplotsset{compat=newest}
 
 
-\def\data{../data/surface_cwm.csv}
+\def\data{../../data/water/surface_cwm.csv}
 \begin{document}
 \begin{tikzpicture}
     \begin{axis}[
@@ -28,6 +28,9 @@
         \addplot +[thin, mark=none, color=red, dashed] table [col sep=semicolon, x=xcwm,
         y expr=-0.1]{\data};
         \addlegendentry{заостренная}
+
+        \addplot +[thin, mark=none, color=black, dashed] table [col sep=semicolon, x=xcwm,
+        y expr=-0.05]{\data};
         
 
 	\end{axis}

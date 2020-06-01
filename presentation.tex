@@ -90,8 +90,9 @@
     \label{eq:surface2d}
     z(\vec r,t) = \sum\limits_{n=1}^{N} \sum\limits_{m=1}^{M}
     A_n(\kappa_n) \cdot
-    F_{nm}(\kappa_n,\phi_m) \cos \qty(\omega_n t + \vec \kappa \vec r + \psi_{nm}),
+    F_{nm}(\kappa_n,\phi_m) \cos \qty(\omega_n t + \vec \kappa_n \vec r + \psi_{nm}),
 \end{equation}
+\footnotesize
 где $\psi_{nm}$ -- случайная фаза, равномерно распределенная в интервале от
 $-\pi$
 до $ \pi$, 
@@ -103,22 +104,90 @@ $\vec \kappa_n =
 (\kappa_{nx}, \kappa_{ny})$ -- 
 волновой вектор. 
 
-\begin{equation}
-    \label{eq:Amplitude}
-    A_n(\kappa_n) = \frac{1}{2 \pi} \sqrt{\int\limits_{\Delta \kappa_n} 2
-        S(\kappa)
-    \dd \kappa},
-\end{equation}
- где  $S(\kappa)$  - спектральная плотность
-мощности,
-
-\begin{equation}
-    F_{nm}(\kappa_n,\phi_m) = \sqrt{\int\limits_{\Delta \phi_m}
-    \Phi_{\xi}(\kappa_n,\phi) \dd \phi},
+\begin{columns}[t]
+    \begin{column}{0.49\linewidth}
+    \footnotesize
+    \begin{equation}
+        \label{eq:Amplitude}
+        A_n(\kappa_n) = \frac{1}{2 \pi} \sqrt{\int\limits_{\Delta \kappa_n} 2
+            S(\kappa)
+        \dd \kappa},
     \end{equation}
- где  $\Phi(\kappa_n, \phi)$   -- { спектральная плотность
-    мощности}
+     где  $S(\kappa)$  - спектральная плотность
+    мощности,
 
+    \begin{equation}
+        F_{nm}(\kappa_n,\phi_m) = \sqrt{\int\limits_{\Delta \phi_m}
+        \Phi_{\xi}(\kappa_n,\phi) \dd \phi},
+        \end{equation}
+     где  $\Phi(\kappa_n, \phi)$   -- { азимутальная плотность
+        мощности}
+    \end{column}
+    \begin{column}[T]{0.49\linewidth}
+        \footnotesize
+        Теоретическая корреляционная функция
+        \begin{equation}
+            K(\rho) = \int\limits_{-\infty}^{\infty} S(\kappa) e^{i \kappa
+            \rho}\dd  \kappa
+        \end{equation}
+        Корреляционная функция модельной поверхности
+        \begin{equation}
+            \tilde K(\rho) = \sum\limits_{n=1}^{N} \frac{A_n^2}{2} \cos(\kappa \rho)
+        \end{equation}
+        Критерий качества моделирования
+        \begin{equation}
+            \tilde K(\rho) \longrightarrow K(\rho)
+        \end{equation}
+    \end{column}
+\end{columns}
+\end{frame}
+\begin{frame}[t]{}
+    Определение высот, определение наклонов, определение наклонов по x,
+    определение уклонами по y,
+    \begin{equation}
+        z(\vec r,t) = \sum\limits_{n=1}^{N} \sum\limits_{m=1}^{M}
+        A_n(\kappa_n) \cdot
+        F_{nm}(\kappa_n,\phi_m) \cos \qty(\omega_n t + \vec \kappa_n \vec r + \psi_{nm}),
+    \end{equation}
+    Определение уклонов в проекции на оси
+    \begin{equation}
+        \pdv{z(\vec r,t)}{x} = \zeta_x = \sum\limits_{n=1}^{N} \sum\limits_{m=1}^{M}
+        A_n(\kappa_n) \cdot \kappa_{nx} \cdot
+        F_{nm}(\kappa_n,\phi_m) \cos \qty(\omega_n t + \vec \kappa_n \vec r + \psi_{nm}),
+    \end{equation}
+    \begin{equation}
+        \pdv{z(\vec r,t)}{y} = \zeta_y = \sum\limits_{n=1}^{N} \sum\limits_{m=1}^{M}
+        A_n(\kappa_n) \cdot \kappa_{ny} \cdot
+        F_{nm}(\kappa_n,\phi_m) \cos \qty(\omega_n t + \vec \kappa_n \vec r + \psi_{nm}),
+    \end{equation}
+
+    Определение полных уклонов
+    \begin{equation}
+        \zeta = \sqrt{\zeta_x^2 + \zeta_y^2}
+    \end{equation}
+
+    Определение орбитальной скорости
+    \begin{equation}
+         \pdv{z(\vec r,t)}{t} = v(\vec r, t) = \sum\limits_{n=1}^{N} \sum\limits_{m=1}^{M}
+        A_n(\kappa_n) \cdot \omega_{n} \cdot
+        F_{nm}(\kappa_n,\phi_m) \cos \qty(\omega_n t + \vec \kappa_n \vec r + \psi_{nm})
+    \end{equation}
+    
+\end{frame}
+
+\begin{frame}[t]{Метод <<отбеливания>> спектра}
+    \begin{figure}[h!]
+        \centering
+        \begin{subfigure}{0.49\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{fig/correlation_height_height2.pdf}
+        \end{subfigure}
+        \begin{subfigure}{0.49\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{fig/correlation_angles_height2.pdf}
+        \end{subfigure}
+        \label{fig:ki}
+    \end{figure}
 \end{frame}
 
 \begin{frame}[t]{Метод <<отбеливания>> спектра}
@@ -614,7 +683,7 @@ $\vec \kappa_n =
 	\begin{enumerate}
         %\item \sout{Заварить кофе}
 		\item Модификация метода заостренной волны
-        \item Учет при моделировании формы земли, атмосферы и ионосферы
+        \item Учет при моделировании атмосферы и ионосферы
 	\end{enumerate}
 	\vfill
     
