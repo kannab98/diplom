@@ -12,17 +12,14 @@
 \begin{document}
 \begin{tikzpicture}
     \begin{axis}[
-            ylabel={Штатный метод}, 
-            xlabel={Предложенный метод},
-            xmin=0,
-            xmax=1.6,
-            ymin=0,
-            ymax=1.6,
-            xtick = {0, 0.5, 1, 1.5},
-            ytick = {0, 0.5, 1, 1.5},
+            ylabel={Относительная ошибка}, 
+            xlabel={Высота значительного волнения},
+            ymin=-0.05,
+            ymax=0.05,
         ] 
         \addplot +[only marks] table [col
-        sep=semicolon, x=h_my, y=h_mle3]{\data};
+        sep=semicolon, x=h_mle3, y expr=(\thisrow{h_mle3} -
+        \thisrow{h_my})/\thisrow{h_mle3}/2]{\data};
     \end{axis}
 \end{tikzpicture}	
 \end{document}
